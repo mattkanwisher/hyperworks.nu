@@ -5,7 +5,9 @@ year: 2016
 event: Rocket Internet Conf
 city: Berlin
 tags: [microservices, digitalocean]
-description: Microservices talk at Rocket Internet Conf 2016.
+description: "Microservices talk at Rocket Internet Conf 2016."
 ---
 
-SlideShare: *DigitalOcean Microservices Talk Rocket Internet Conf '16*.
+**Rocket Internet Conf 2016 · Berlin**
+
+DigitalOcean microservices practices for a product/engineering audience — how cloud control planes are factored and operated. SlideShare: *DigitalOcean Microservices Talk Rocket Internet Conf '16*.

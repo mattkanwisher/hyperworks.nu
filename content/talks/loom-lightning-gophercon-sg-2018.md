@@ -6,7 +6,9 @@ event: GopherCon Singapore
 city: Singapore
 youtube: Aw9HRaR_t3A
 tags: [blockchain, loom]
-description: Loom Network sponsor lightning talk.
+description: "Loom Network sponsor lightning talk."
 ---
 
-**GopherCon SG 2018** lightning — Loom Network for developers.
+**GopherCon Singapore 2018** (sponsor lightning)
+
+Short Loom Network pitch for Go developers: sidechains / DApp tooling and how Loom fit the 2018 blockchain stack.

@@ -6,9 +6,17 @@ event: GopherCon UK
 city: London
 youtube: BzDUl9UrLRg
 tags: [go, blockchain, ethereum]
-description: Building blockchain applications with Go.
+description: "Building blockchain applications with Go."
 ---
 
-**GopherCon UK 2018** — blockchain apps in Go.
+**GopherCon UK 2018 · London**
 
-Local slides: `blockchains-in-go-london-2018.md` / `.pdf`.
+Blockchains as specialized databases, smart contracts, and **Go’s role** (Ethereum clients, Loom, consensus libraries).
+
+### Topics
+- Use cases: money, ledgers, game assets, tokenized equity
+- Smart contracts: deterministic, events, no external state
+- Why pure Go apps struggle with determinism (map order, time, goroutines)
+- Solidity / EVM vs Go infrastructure
+- Consensus (Raft vs BFT), Merkle trees, storage layers
+- Loom SDK / sidechains for scalable apps (esp. games)

@@ -30,3 +30,16 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
+
+# Listing lives on /speaking/; keep /talks/<slug>/ detail pages
+[[redirects]]
+  from = "/talks"
+  to = "/speaking/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/talks/"
+  to = "/speaking/"
+  status = 301
+  force = true

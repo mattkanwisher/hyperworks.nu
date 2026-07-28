@@ -6,7 +6,11 @@ event: GopherCon India
 city: India
 youtube: mDTg1dLUqBE
 tags: [go, systems, messaging]
-description: Building and scaling a financial instant messenger with Go.
+description: "Building and scaling a financial instant messenger with Go."
 ---
 
-Talk at **GopherCon India 2015** on keeping high-stakes financial messaging reliable with Go — drawn from work on Thomson Reuters Eikon Messenger.
+**GopherCon India 2015**
+
+Reliability and scale for **financial instant messaging** (Thomson Reuters Eikon Messenger territory): hundreds of thousands of demanding users, multi-datacenter messaging, and why Go fit the problem.
+
+Companion slides historically on SlideShare: *Making Wallstreet talk with GO*.

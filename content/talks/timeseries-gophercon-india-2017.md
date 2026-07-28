@@ -3,12 +3,24 @@ title: "Distributed Timeseries Database in Go"
 date: 2017-02-24
 year: 2017
 event: GopherCon India
-slides: /slides/distributed-timeseries-database.pdf
 city: India
+slides: /slides/distributed-timeseries-database.pdf
 tags: [go, prometheus, timeseries, cassandra, kafka]
-description: Building Vulcan — a Prometheus-compatible distributed timeseries database in Go.
+description: "Building Vulcan — a Prometheus-compatible distributed timeseries database in Go."
 ---
 
-**GopherCon India 2017** — deep dive into building a distributed timeseries database (DigitalOcean Vulcan): Kafka pipelines, Cassandra storage, Kubernetes deploy, Go concurrency lessons.
+**GopherCon India 2017**
 
-Slides: Speaker Deck + local `distributed-timeseries-database.md` / `.pdf`.
+Deep dive into **Vulcan**, DigitalOcean’s Prometheus-compatible distributed timeseries database written in Go.
+
+### Outline (from the deck)
+- Why Go for NoSQL/NewSQL (Prometheus, Cockroach, Influx, etcd…)
+- Timeseries properties: write-heavy, compressible, lossy-friendly
+- From hash-sharded Prometheus to a pipelined microservice architecture
+- Kafka ingestion, Cassandra/chunk storage, schema evolution (V1 series → V2 chunks + index)
+- In-memory query engine and downsampling
+- Hard numbers we designed for: multi-Gbit/s, 100k writes/s, tens of TB
+
+### Links
+- [Speaker Deck](https://speakerdeck.com/mattkanwisher/building-distributed-timeseries-database-in-go)
+- Open source context: [digitalocean/vulcan](https://github.com/digitalocean/vulcan) (historical)

@@ -7,9 +7,18 @@ city: Berlin
 youtube: likpVWB5Lvo
 slides: /slides/promcon-2016-scaling-prometheus.pdf
 tags: [prometheus, monitoring, devops, digitalocean]
-description: Scaling Prometheus-based monitoring at DigitalOcean.
+description: "Scaling Prometheus-based monitoring at DigitalOcean."
 ---
 
-**PromCon 2016 (Berlin)** — running a public-facing monitoring platform on Prometheus at DigitalOcean scale.
+**PromCon 2016 · Berlin**
 
-Slides: [promcon/slides-2016](https://github.com/promcon/slides-2016) — `04-Campbell-Scaling_to_a_Million_Machines_with_Prometheus.pdf`.
+How DigitalOcean ran a **public-facing monitoring platform on Prometheus** toward multi-datacenter, high-cardinality load.
+
+### Themes
+- Prometheus as the customer-facing metrics plane
+- Sharding, storage pressure, and operational reality past a few thousand machines
+- Lessons that fed later work on Vulcan (compatible timeseries pipeline)
+
+### Links
+- [YouTube](https://www.youtube.com/watch?v=likpVWB5Lvo)
+- Slides in [promcon/slides-2016](https://github.com/promcon/slides-2016)

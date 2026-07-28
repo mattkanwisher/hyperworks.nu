@@ -5,8 +5,9 @@ year: 2014
 event: Bangkok Launchpad
 city: Bangkok
 tags: [go]
-description: Introductory talk on the Go programming language.
-draft: false
+description: "Introductory talk on the Go programming language."
 ---
 
-Early Go talk at **Bangkok Launchpad 2014**. Slides on SlideShare: *Intro to GO (Bangkok Launchpad 2014)*.
+**Bangkok Launchpad 2014**
+
+Early **Intro to Go** for the Bangkok community. Slides historically on SlideShare (*Intro to GO — Bangkok Launchpad 2014*).

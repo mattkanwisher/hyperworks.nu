@@ -32,11 +32,12 @@
     <a href="https://www.youtube.com/watch?v={{ . }}">Watch on YouTube</a>
     {{ end }}
     {{ with .Params.slides }}
-    <a href="{{ . }}">Slides</a>
+    <a href="{{ . }}">Slides (PDF)</a>
     {{ end }}
     {{ with .Params.external }}
     <a href="{{ . }}">Event page</a>
     {{ end }}
+    <a href="{{ "speaking/" | relURL }}">← All speaking</a>
   </div>
 
   <div class="article-content">

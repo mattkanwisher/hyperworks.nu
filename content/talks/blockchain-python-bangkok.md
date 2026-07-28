@@ -6,7 +6,9 @@ event: Bangkok Python Meetup
 city: Bangkok
 youtube: drpzgnPNno8
 tags: [blockchain, ethereum, python]
-description: Developing blockchain apps — Loom Network era intro for Python developers.
+description: "Developing blockchain apps — Loom Network era intro for Python developers."
 ---
 
-**Bangkok Python Meetup** — intro to building blockchain / Ethereum dApps.
+**Bangkok Python Meetup**
+
+Hands-on intro for Python developers: blockchain basics, smart contracts, Solidity/EVM, TestRPC, a voting-app walkthrough, and common pitfalls — then where Python fits in the toolchain.

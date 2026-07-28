@@ -6,9 +6,19 @@ event: GopherCon Singapore
 city: Singapore
 youtube: k0-WyZCKF5I
 tags: [go, databases, distributed-systems]
-description: Deep dive into building distributed databases in Go.
+description: "Deep dive into building distributed databases in Go."
 ---
 
-**GopherCon SG 2018** — how distributed databases work and how to build one in Go.
+**GopherCon Singapore 2018**
 
-Local slides: `how-to-build-distributed-database-singapore-2018.md`.
+A from-scratch mental model for **distributed databases in Go**.
+
+### Deck outline
+- Layers: file → KV → SQLite → relational
+- When MySQL/Postgres are not enough (custom indexes, domain query languages)
+- Use cases: blockchains, trading, logs, metrics
+- Go examples: Influx, Prometheus, Vulcan, Ethereum, etcd, Consul
+- Architecture: consensus (Raft/Paxos/BFT), storage (LevelDB/Rocks/Bolt), query layer
+- Starting points: HashiCorp Raft, etcd Raft, toy SQL parsers
+
+For people who want to *build* storage systems, not only use them.

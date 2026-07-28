@@ -6,7 +6,16 @@ event: microXchg
 city: Berlin
 youtube: tFzMB-7By0o
 tags: [go, microservices, cloud, digitalocean]
-description: How DigitalOcean builds cloud infrastructure with Go microservices.
+description: "How DigitalOcean builds cloud infrastructure with Go microservices."
 ---
 
-**microXchg 2016 (Berlin)** — how DigitalOcean writes, monitors, and deploys the microservices that run the cloud: multi-datacenter scale, observability, and day-to-day engineering.
+**microXchg 2016 · Berlin**
+
+How DigitalOcean builds the cloud: **Go microservices** across many datacenters, tens of thousands of customers, and the day-to-day of writing, monitoring, and shipping control-plane services.
+
+### Themes
+- Microservices that *are* the cloud product
+- Observability and deploy culture
+- Scaling org + codebase past a single monolith (DO’s early Perl stack → dozens of services)
+
+Same core talk also given at GopherCon India and Golang UK 2016.
