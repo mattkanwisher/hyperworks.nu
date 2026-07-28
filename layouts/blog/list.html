@@ -27,5 +27,22 @@
     </li>
     {{ end }}
   </ul>
+
+  {{ with .Site.Data.medium_posts }}
+  <section class="old-blog-posts">
+    <h2>Old blog posts</h2>
+    <p class="muted old-blog-lead">Articles I published on <a href="https://medium.com/@kanwisher">Medium</a> (including Loom Network).</p>
+    <ul class="old-blog-list">
+      {{ range . }}
+      <li>
+        <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
+        {{ with .date }}
+        <span class="meta">{{ . }}</span>
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
 </div>
 {{ end }}

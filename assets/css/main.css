@@ -523,6 +523,66 @@ img {
   width: min(100%, var(--wide));
 }
 
+/* Medium / archive links on blog index */
+.old-blog-posts {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  width: min(100%, var(--max));
+  margin-inline: auto;
+}
+
+.old-blog-posts h2 {
+  margin-top: 0;
+  border: 0;
+  padding: 0;
+}
+
+.old-blog-lead {
+  margin: 0.35rem 0 1rem;
+  font-size: 0.95rem;
+}
+
+.old-blog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.old-blog-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 1rem;
+}
+
+.old-blog-list li + li {
+  border-top: 1px solid var(--border);
+}
+
+.old-blog-list a {
+  text-decoration: none;
+  color: var(--link);
+  font-weight: 500;
+}
+
+.old-blog-list a:hover {
+  color: var(--accent);
+}
+
+.old-blog-list .meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
 .home-blog-list .blog-card {
   min-height: 180px;
 }
