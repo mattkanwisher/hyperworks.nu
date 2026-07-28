@@ -17,7 +17,7 @@ Founder (Techstars Winter '18). CryptoZombies became one of the most popular int
 
 Microservices scalability — monitoring and distributed timeseries on top of Prometheus, Kafka, Cassandra, and Kubernetes (including open-source work around **Vulcan**).
 
-Talks from this era: *Cloud in your Cloud*, *Distributed Scheduler Hell*, *Scaling to a Million Machines with Prometheus*, *Distributed Timeseries in Go*.
+[Talks](/speaking/) from this era: *Cloud in your Cloud*, *Distributed Scheduler Hell*, *Scaling to a Million Machines with Prometheus*, *Distributed Timeseries in Go*.
 
 ## Earlier
 

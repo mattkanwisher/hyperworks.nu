@@ -15,7 +15,7 @@ I build things at the intersection of **distributed systems**, **Go**, and incre
 - Earlier: **Thomson Reuters** (Eikon Messenger), **Bloomberg**, Gucci, Cartoon Network
 - Founded **Errplane** and **Langfight**
 
-I've spoken at **20+ international conferences** across Go, DevOps, microservices, and blockchain. Talk videos and abstracts live under [Talks](/talks/).
+I've spoken at **20+ international conferences** across Go, DevOps, microservices, and blockchain. Talk videos and abstracts live under [Talks](/speaking/).
 
 ## Contact
 
