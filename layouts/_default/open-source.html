@@ -21,7 +21,7 @@
         <a class="oss-card-preview" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
           <img
             src="https://opengraph.githubassets.com/hyperworks/{{ .repo }}"
-            alt=""
+            alt="GitHub preview for {{ .name | default .repo }}"
             width="1200"
             height="600"
             loading="lazy"
@@ -90,7 +90,7 @@
         <a class="oss-card-preview" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
           <img
             src="https://opengraph.githubassets.com/hyperworks/{{ .repo }}"
-            alt=""
+            alt="GitHub preview for {{ .repo }}"
             width="1200"
             height="600"
             loading="lazy"
@@ -161,7 +161,7 @@
         <a class="oss-card-preview" href="{{ $p.url }}" target="_blank" rel="noopener noreferrer">
           <img
             src="https://opengraph.githubassets.com/hyperworks/{{ $p.repo }}"
-            alt=""
+            alt="GitHub preview for {{ $p.name | default $p.repo }}"
             width="1200"
             height="600"
             loading="lazy"

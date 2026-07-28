@@ -1,12 +1,12 @@
 ---
-title: "HashiCorp Conf"
-date: 2016-01-01
+title: "HashiConf"
+date: 2016-09-01
 year: 2016
-event: HashiCorp Conf
+event: HashiConf
 tags: [devops, nomad, consul]
-description: "Listed among 20+ international conferences in speaker bios. Exact year/title TBD."
+description: "Spoke at HashiConf on HashiCorp tooling in production — Nomad, Consul, and related scheduler topics."
 ---
 
-**HashiCorp Conf / HashiConf**
+**HashiConf**
 
-Repeated in DigitalOcean-era speaker bios. Exact title and year still TBD — likely Nomad/Consul/scheduler adjacent given concurrent *Scheduler Hell* work.
+DigitalOcean-era conference talk adjacent to Nomad, Consul, and container scheduling — the same problem space as *Distributed Scheduler Hell*.

@@ -72,17 +72,18 @@
   <ul class="blog-card-list home-blog-list">
     {{ $posts := where .Site.RegularPages "Section" "blog" }}
     {{ range first 3 $posts.ByDate.Reverse }}
+    {{ $post := . }}
     <li>
-      <a class="blog-card" href="{{ .RelPermalink }}">
-        {{ with .Params.image }}
+      <a class="blog-card" href="{{ $post.RelPermalink }}">
+        {{ with $post.Params.image }}
         <div class="blog-card-thumb">
-          <img src="{{ . }}" alt="" width="480" height="270" loading="lazy" decoding="async">
+          <img src="{{ . }}" alt="{{ with $post.Params.image_alt }}{{ . }}{{ else }}Thumbnail for {{ $post.Title }}{{ end }}" width="480" height="270" loading="lazy" decoding="async">
         </div>
         {{ end }}
         <div class="blog-card-body">
-          <h3>{{ .Title }}</h3>
-          <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
-          {{ with .Description }}<p>{{ . | truncate 100 }}</p>{{ end }}
+          <h3>{{ $post.Title }}</h3>
+          <div class="meta">{{ $post.Date.Format "2006-01-02" }}</div>
+          {{ with $post.Description }}<p>{{ . | truncate 100 }}</p>{{ end }}
         </div>
       </a>
     </li>
@@ -102,7 +103,7 @@
       <div class="video-thumb">
         <img
           src="https://i.ytimg.com/vi/{{ $yt }}/mqdefault.jpg"
-          alt=""
+          alt="Video thumbnail: {{ .Title }}"
           width="320"
           height="180"
           loading="lazy"

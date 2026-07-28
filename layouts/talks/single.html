@@ -6,7 +6,8 @@
       {{ with .Params.event }}{{ . }}{{ end }}
       {{ with .Params.year }} · {{ . }}{{ end }}
       {{ with .Params.city }} · {{ . }}{{ end }}
-      {{ with .Params.date }} · {{ time.Format "2006-01-02" . }}{{ end }}
+      {{/* Prefer year only when full calendar date is just a sort key */}}
+      {{ if and .Date (not .Params.year) }} · {{ .Date.Format "2006-01-02" }}{{ end }}
     </div>
     {{ with .Params.tags }}
     <div class="tag-row">

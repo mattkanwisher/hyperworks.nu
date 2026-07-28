@@ -8,18 +8,19 @@
   </header>
   <ul class="blog-card-list">
     {{ range .Pages.ByDate.Reverse }}
+    {{ $post := . }}
     <li>
-      <a class="blog-card" href="{{ .RelPermalink }}">
-        {{ with .Params.image }}
+      <a class="blog-card" href="{{ $post.RelPermalink }}">
+        {{ with $post.Params.image }}
         <div class="blog-card-thumb">
-          <img src="{{ . }}" alt="" width="960" height="540" loading="lazy" decoding="async">
+          <img src="{{ . }}" alt="{{ with $post.Params.image_alt }}{{ . }}{{ else }}Thumbnail for {{ $post.Title }}{{ end }}" width="960" height="540" loading="lazy" decoding="async">
         </div>
         {{ end }}
         <div class="blog-card-body">
-          <h3>{{ .Title }}</h3>
-          <div class="meta">{{ .Date.Format "January 2, 2006" }}</div>
-          {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ with .Summary }}<p>{{ . | plainify | truncate 160 }}</p>{{ end }}{{ end }}
-          {{ with .Params.tags }}
+          <h3>{{ $post.Title }}</h3>
+          <div class="meta">{{ $post.Date.Format "January 2, 2006" }}</div>
+          {{ with $post.Description }}<p>{{ . }}</p>{{ else }}{{ with $post.Summary }}<p>{{ . | plainify | truncate 160 }}</p>{{ end }}{{ end }}
+          {{ with $post.Params.tags }}
           <div class="tag-row">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
           {{ end }}
         </div>

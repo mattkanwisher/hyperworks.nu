@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Permalink }}</title>
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta http-equiv="refresh" content="0; url={{ .Permalink }}">
+  <meta name="robots" content="noindex">
+  {{/* Social previews for old URLs (e.g. /talks/) before clients follow the redirect */}}
+  <meta property="og:title" content="{{ with .Page }}{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta property="og:description" content="{{ with .Page }}{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  {{ $og := "" }}
+  {{ with .Page }}
+    {{ with .Params.image }}{{ $og = . }}{{ end }}
+  {{ end }}
+  {{ if not $og }}{{ $og = site.Params.images.og | default "/images/og/speaking.jpg" }}{{ end }}
+  {{ if or (hasPrefix $og "http://") (hasPrefix $og "https://") }}
+  <meta property="og:image" content="{{ $og }}">
+  <meta name="twitter:image" content="{{ $og }}">
+  {{ else }}
+  <meta property="og:image" content="{{ $og | absURL }}">
+  <meta name="twitter:image" content="{{ $og | absURL }}">
+  {{ end }}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@kanwisher">
+</head>
+<body>
+  <p><a href="{{ .Permalink }}">Redirecting…</a></p>
+</body>
+</html>
