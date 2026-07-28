@@ -1,0 +1,111 @@
+{{ define "main" }}
+{{/* All talks; video first (newest), then others */}}
+{{ $all := where .Site.RegularPages "Section" "talks" }}
+{{ $withVideo := slice }}
+{{ $without := slice }}
+{{ range $all.ByDate.Reverse }}
+  {{ if .Params.youtube }}
+    {{ $withVideo = $withVideo | append . }}
+  {{ else }}
+    {{ $without = $without | append . }}
+  {{ end }}
+{{ end }}
+
+<div class="wrap-wide speaking-page">
+  <header class="speaking-hero">
+    <div class="speaking-hero-text">
+      <p class="eyebrow">Conference speaking</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Content }}
+      <div class="lead speaking-intro">{{ . }}</div>
+      {{ end }}
+      <div class="speaking-cta">
+        <a class="btn btn-primary" href="mailto:{{ .Site.Params.email }}?subject=Speaking%20inquiry">Book / inquire</a>
+        <a class="btn btn-ghost" href="{{ .Site.Params.youtube }}">YouTube playlist</a>
+        <a class="btn btn-ghost" href="{{ "talks/" | relURL }}">All talk pages</a>
+      </div>
+      <p class="speaking-share muted">
+        Share this page: <a href="{{ .Permalink }}">{{ .Permalink }}</a>
+      </p>
+    </div>
+    {{ with .Site.Params.headshot }}
+    <img class="speaking-headshot" src="{{ . }}" alt="{{ $.Site.Params.author }}" width="140" height="175">
+    {{ end }}
+  </header>
+
+  <div class="section-head">
+    <h2>Talks with video <span class="count">{{ len $withVideo }}</span></h2>
+  </div>
+  <p class="muted speaking-hint">Click a thumbnail to watch on YouTube.</p>
+
+  <div class="video-grid video-grid-speaking">
+    {{ range $withVideo }}
+    {{ $yt := .Params.youtube | string }}
+    <article class="video-card speaking-card">
+      <a class="video-thumb" href="https://www.youtube.com/watch?v={{ $yt }}" target="_blank" rel="noopener noreferrer" title="Watch: {{ .Title }}">
+        <img
+          src="https://i.ytimg.com/vi/{{ $yt }}/hqdefault.jpg"
+          alt=""
+          width="480"
+          height="360"
+          loading="lazy"
+          decoding="async">
+        <span class="play-badge" aria-hidden="true">▶</span>
+      </a>
+      <div class="video-card-body">
+        <h3>
+          <a href="https://www.youtube.com/watch?v={{ $yt }}" target="_blank" rel="noopener noreferrer">{{ .Title }}</a>
+        </h3>
+        <div class="meta">
+          {{ with .Params.event }}{{ . }}{{ end }}
+          {{ with .Params.year }} · {{ . }}{{ end }}
+          {{ with .Params.city }} · {{ . }}{{ end }}
+        </div>
+        {{ with .Description }}
+        <p class="speaking-desc">{{ . }}</p>
+        {{ end }}
+        <div class="speaking-card-links">
+          <a href="https://www.youtube.com/watch?v={{ $yt }}" target="_blank" rel="noopener noreferrer">Watch video</a>
+          <a href="{{ .RelPermalink }}">Talk page</a>
+          {{ with .Params.slides }}
+          <a href="{{ . }}">Slides</a>
+          {{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+
+  {{ if $without }}
+  <div class="section-head">
+    <h2>Other talks <span class="count">{{ len $without }}</span></h2>
+  </div>
+  <p class="muted speaking-hint">No public video on file yet — details and slides where available.</p>
+  <ul class="talk-link-list">
+    {{ range $without }}
+    <li>
+      <a href="{{ .RelPermalink }}">
+        <span class="talk-link-title">{{ .Title }}</span>
+        <span class="meta">
+          {{ with .Params.event }}{{ . }}{{ end }}
+          {{ with .Params.year }} · {{ . }}{{ end }}
+        </span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  <section class="speaking-footer-cta">
+    <h2>Invite me to speak</h2>
+    <p>
+      Topics: hardware reverse engineering, Go and distributed systems, robotics software,
+      and engineering war stories from cloud and startups.
+      Based in Bangkok; available for conferences worldwide (in person or remote).
+    </p>
+    <p>
+      <a class="btn btn-primary" href="mailto:{{ .Site.Params.email }}?subject=Speaking%20inquiry">{{ .Site.Params.email }}</a>
+    </p>
+  </section>
+</div>
+{{ end }}
