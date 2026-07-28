@@ -3,7 +3,8 @@ title: "Handling Blocking IO in Go"
 date: 2012-07-19
 description: "How to deal with blocking IO in Go — spawning processes, reading stdout without freezing your server, channels, and killing hung tails safely."
 tags: [go, archive]
-image: /images/og/blog-go-io.jpg---
+image: /images/og/blog-go-io.jpg
+---
 
 *Originally published on kanwisher.com, July 19, 2012. Restored from the [Wayback Machine](https://web.archive.org/web/20120720065758/http://www.kanwisher.com/2012/07/19/handling-blocking-io-in-go/).*
 
