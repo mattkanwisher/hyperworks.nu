@@ -56,9 +56,13 @@ defaultContentLanguage = "en"
     url = "/work/"
     weight = 4
   [[menu.main]]
+    name = "Open Source"
+    url = "/open-source/"
+    weight = 5
+  [[menu.main]]
     name = "About"
     url = "/about/"
-    weight = 5
+    weight = 6
 
 [outputs]
   home = ["HTML", "RSS"]

@@ -118,30 +118,57 @@ img {
 .home-compact .home-blog-list .blog-card {
   min-height: 0;
   border-radius: 10px;
+  /* stack on small screens; side-by-side only when wide enough */
+  grid-template-columns: 1fr;
 }
 
 @media (min-width: 720px) {
   .home-compact .home-blog-list .blog-card {
-    grid-template-columns: 120px minmax(0, 1fr);
+    /* fixed thumb + fluid body; minmax(0,…) stops image intrinsic size from blowing the grid */
+    grid-template-columns: 132px minmax(0, 1fr);
     min-height: 0;
+    align-items: stretch;
   }
 }
 
 .home-compact .home-blog-list .blog-card-thumb {
   aspect-ratio: 16 / 9;
   max-height: 88px;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 @media (min-width: 720px) {
   .home-compact .home-blog-list .blog-card-thumb {
     max-height: none;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 0;
     align-self: stretch;
   }
 }
 
+.home-compact .home-blog-list .blog-card-thumb img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  /* no hover zoom on compact home cards — scale bleeds over title */
+  transform: none;
+}
+
+.home-compact .home-blog-list .blog-card:hover .blog-card-thumb img {
+  transform: none;
+}
+
 .home-compact .home-blog-list .blog-card-body {
-  padding: 0.55rem 0.75rem;
+  padding: 0.55rem 0.85rem;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-elevated);
 }
 
 .home-compact .home-blog-list .blog-card-body h3 {
@@ -570,12 +597,14 @@ img {
   aspect-ratio: 16 / 9;
   background: #000;
   overflow: hidden;
+  min-width: 0;
 }
 
 @media (min-width: 720px) {
   .blog-card-thumb {
     aspect-ratio: auto;
     min-height: 100%;
+    height: 100%;
     align-self: stretch;
   }
 }
@@ -599,6 +628,10 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-elevated);
 }
 
 .blog-card-body h3 {
@@ -707,13 +740,20 @@ img {
   white-space: nowrap;
 }
 
+/* Homepage list: prefer compact layout (see .home-compact overrides above).
+   Blog index keeps the wider image-dominant cards. */
 .home-blog-list .blog-card {
-  min-height: 180px;
+  min-height: 0;
 }
 
 @media (min-width: 720px) {
   .home-blog-list .blog-card {
     grid-template-columns: minmax(240px, 52%) minmax(0, 48%);
+  }
+
+  /* Home compact wins over the wide 52/48 split */
+  .home-compact .home-blog-list .blog-card {
+    grid-template-columns: 132px minmax(0, 1fr);
   }
 }
 

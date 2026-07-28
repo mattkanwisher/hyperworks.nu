@@ -28,6 +28,10 @@ Microservices scalability — monitoring and distributed timeseries on top of Pr
 | Engineering | Gucci, Cartoon Network |
 | Founder | Errplane, Langfight |
 
+## Open source
+
+Accepted upstream contributions (Prometheus, LocalAI, Nomad, CryptoZombies, and more) and personal repos: **[Open Source](/open-source/)**.
+
 ## Consulting & speaking
 
 Available for consulting, technical talks, and workshops (Go, distributed systems, hardware RE, robotics software).

@@ -1,6 +1,6 @@
 ---
 title: "Hello hyperworks.nu"
-date: 2026-07-27
+date: 2026-07-26
 description: Relaunching kanwisher.com as a static Markdown site for talks, blog, and reverse engineering write-ups.
 tags: [meta, site]
 image: /images/og/blog-hello.jpg
