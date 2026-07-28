@@ -1,7 +1,6 @@
 ---
 title: "Hello hyperworks.nu"
-date: 2026-07-28
-description: Relaunching kanwisher.com as a static Markdown site for talks, blog, and reverse engineering write-ups.
+date: 2011-12-01description: Relaunching kanwisher.com as a static Markdown site for talks, blog, and reverse engineering write-ups.
 tags: [meta, site]
 image: /images/blog/headers/hello.jpg
 ---
