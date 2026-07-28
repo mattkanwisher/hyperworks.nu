@@ -3,6 +3,7 @@ title: "Speaking"
 layout: speaking
 description: "Matthew Campbell — conference talks with video. Go, distributed systems, DevOps, blockchain, reverse engineering. Share this page with organizers."
 url: /speaking/
+image: /images/og/speaking.jpg
 aliases:
   - /talks/
 ---

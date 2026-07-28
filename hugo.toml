@@ -23,7 +23,7 @@ defaultContentLanguage = "en"
   headshot = "/images/headshot.jpg"
   [params.images]
     # Default social share image when a page has no image / youtube front matter
-    og = "/images/avatar.jpg"
+    og = "/images/og/home.jpg"
 
 [taxonomies]
   tag = "tags"

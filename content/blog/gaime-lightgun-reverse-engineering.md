@@ -3,7 +3,7 @@ title: "Taking apart the G'AIM'E light gun — both halves of it"
 date: 2026-07-28
 description: "A ¥13,200 Time Crisis console ships a hardcoded AES key, no secure boot, and a licensed Namco arcade emulator. The gun is a second Linux computer with an NPU and a root shell on a header."
 tags: [reverse-engineering, hardware, allwinner, android, lightgun, namco]
-image: /images/blog/headers/gaime.jpg
+image: /images/og/blog-gaime.jpg
 draft: false
 ---
 
