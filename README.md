@@ -87,3 +87,34 @@ npx serve public   # optional smoke test
 ```
 
 Theme is **dark by default** (`color-scheme: dark` on `html` / meta).
+
+### Git remotes (local)
+
+| Remote | Repo |
+|--------|------|
+| `hyperworks` | [mattkanwisher/hyperworks.nu](https://github.com/mattkanwisher/hyperworks.nu) — **primary** (Netlify) |
+| `origin` | `mattkanwisher/kanwisher_com` — legacy |
+
+```bash
+git push hyperworks master
+```
+
+## Redirecting kanwisher.com → hyperworks.nu
+
+`kanwisher.com` is **not** on GitHub Pages. DNS is **Cloudflare**; origin is **S3** (static files last updated ~2017).
+
+**Best option — Cloudflare Redirect Rule** (no S3 changes):
+
+1. Cloudflare dashboard → zone **kanwisher.com**
+2. **Rules** → **Redirect Rules** → Create rule  
+   - Name: `kanwisher → hyperworks`  
+   - If: Hostname equals `kanwisher.com` **OR** `www.kanwisher.com`  
+   - Then: Dynamic redirect  
+     - `concat("https://hyperworks.nu", http.request.uri.path)`  
+     - Status: **301**  
+     - Preserve query string: on  
+3. Optionally add the same for any path variants.
+
+**Alternative — S3 website redirect:** if the bucket is in website hosting mode, set *Static website hosting → Redirect all requests* to `hyperworks.nu`. Cloudflare still needs to point at that bucket (or use Cloudflare-only redirect and ignore S3).
+
+**Not GitHub Pages:** changing `mattkanwisher/kanwisher_com` will not affect live traffic until DNS/origin change.
