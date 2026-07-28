@@ -1,13 +1,37 @@
 {{ define "main" }}
-{{/* Talks with video, newest first */}}
+{{/*
+  Homepage featured: Go / systems / DevOps videos (not blockchain).
+  Newest non-crypto first; remaining video talks listed below.
+*/}}
+{{ $cryptoTags := slice "blockchain" "ethereum" "loom" "plasma" }}
 {{ $videoTalks := slice }}
+{{ $systemsVideo := slice }}
 {{ range (where .Site.RegularPages "Section" "talks").ByDate.Reverse }}
   {{ if .Params.youtube }}
     {{ $videoTalks = $videoTalks | append . }}
+    {{ $isCrypto := false }}
+    {{ range .Params.tags }}
+      {{ if in $cryptoTags . }}{{ $isCrypto = true }}{{ end }}
+    {{ end }}
+    {{/* Title fallback if tags incomplete */}}
+    {{ $t := lower .Title }}
+    {{ if or (in $t "blockchain") (in $t "plasma") (in $t "loom") (in $t "ethereum") }}
+      {{ $isCrypto = true }}
+    {{ end }}
+    {{ if not $isCrypto }}
+      {{ $systemsVideo = $systemsVideo | append . }}
+    {{ end }}
   {{ end }}
 {{ end }}
-{{ $featured := first 3 $videoTalks }}
-{{ $more := after 3 $videoTalks }}
+{{ $featured := first 3 $systemsVideo }}
+{{ $more := slice }}
+{{ range $v := $videoTalks }}
+  {{ $inFeatured := false }}
+  {{ range $f := $featured }}
+    {{ if eq $f.RelPermalink $v.RelPermalink }}{{ $inFeatured = true }}{{ end }}
+  {{ end }}
+  {{ if not $inFeatured }}{{ $more = $more | append $v }}{{ end }}
+{{ end }}
 
 <div class="wrap wrap-home">
   <section class="hero">
