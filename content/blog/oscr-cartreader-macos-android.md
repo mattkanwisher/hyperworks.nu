@@ -3,6 +3,7 @@ title: "Akihabara cart reader → macOS + Android: dump SNES ROMs without swappi
 date: 2026-07-27
 description: "Bought an Open Source Cartridge Reader in Akihabara. It had no macOS or Android UI — so I forked the firmware and built native companions that stream ROMs over USB and launch an emulator."
 tags: [reverse-engineering, hardware, arduino, snes, retro, macos, android]
+image: /images/blog/headers/cartreader.jpg
 draft: false
 ---
 
