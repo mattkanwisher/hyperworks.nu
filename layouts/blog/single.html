@@ -1,6 +1,6 @@
 {{ define "main" }}
-<article class="wrap">
-  <header class="article-header">
+<article class="post-article">
+  <header class="article-header wrap-blog-text">
     <h1>{{ .Title }}</h1>
     <div class="meta">{{ .Date.Format "January 2, 2006" }}</div>
     {{ with .Params.tags }}
@@ -9,10 +9,10 @@
   </header>
   {{ with .Params.image }}
   <figure class="post-hero">
-    <img src="{{ . }}" alt="" width="1280" height="720" fetchpriority="high">
+    <img src="{{ . }}" alt="" width="1600" height="900" fetchpriority="high">
   </figure>
   {{ end }}
-  <div class="article-content">
+  <div class="article-content wrap-blog-text">
     {{ .Content }}
   </div>
 </article>
