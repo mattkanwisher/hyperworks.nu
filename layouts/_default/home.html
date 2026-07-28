@@ -23,7 +23,18 @@
     {{ end }}
   {{ end }}
 {{ end }}
-{{ $featured := first 3 $systemsVideo }}
+{{/* Prefer variety: skip duplicate titles in the top 3 */}}
+{{ $featured := slice }}
+{{ range $systemsVideo }}
+  {{ if lt (len $featured) 3 }}
+    {{ $title := .Title }}
+    {{ $dup := false }}
+    {{ range $featured }}
+      {{ if eq .Title $title }}{{ $dup = true }}{{ end }}
+    {{ end }}
+    {{ if not $dup }}{{ $featured = $featured | append . }}{{ end }}
+  {{ end }}
+{{ end }}
 {{ $more := slice }}
 {{ range $v := $videoTalks }}
   {{ $inFeatured := false }}
