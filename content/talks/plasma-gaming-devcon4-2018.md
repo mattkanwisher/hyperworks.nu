@@ -4,7 +4,8 @@ date: 2018-10-01
 year: 2018
 event: Devcon 4
 city: Prague
-youtube: Epd3aMQtfZQ
+youtube: Cz8seJmJCR0
+youtube_original: Epd3aMQtfZQ
 tags: [blockchain, plasma, gaming, ethereum]
 description: "How Plasma Cash changes blockchain gaming — ownership and forkability."
 ---

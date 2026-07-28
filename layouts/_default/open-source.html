@@ -1,0 +1,202 @@
+{{ define "main" }}
+{{ $data := hugo.Data.opensource }}
+<article class="wrap wrap-wide oss-page">
+  <header class="article-header">
+    <h1>{{ .Title }}</h1>
+    <p class="lead oss-lead">
+      Accepted pull requests on public repos, ranked by project size — plus top personal projects.
+      GitHub: <a href="https://github.com/mattkanwisher">mattkanwisher</a>
+    </p>
+  </header>
+
+  <section class="oss-section" aria-labelledby="oss-upstream">
+    <div class="section-head">
+      <h2 id="oss-upstream">Upstream contributions</h2>
+    </div>
+    <p class="oss-section-intro muted">Merged PRs outside my own account. Larger projects first.</p>
+
+    <div class="oss-card-list">
+      {{ range $data.upstream }}
+      <article class="oss-card">
+        <a class="oss-card-preview" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://opengraph.githubassets.com/hyperworks/{{ .repo }}"
+            alt=""
+            width="1200"
+            height="600"
+            loading="lazy"
+            decoding="async">
+        </a>
+        <div class="oss-card-body">
+          <div class="oss-card-top">
+            <h3 class="oss-card-title">
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name | default .repo }}</a>
+            </h3>
+            <div class="oss-meta-row">
+              <span class="oss-stars" title="{{ .stars }} stars on GitHub">
+                <svg class="oss-star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                  <path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+                </svg>
+                <span class="oss-stars-count">{{ .stars_label }}</span>
+              </span>
+              {{ with .lang }}<span class="oss-lang">{{ . }}</span>{{ end }}
+            </div>
+          </div>
+          <p class="oss-blurb">{{ .blurb }}</p>
+          {{ with .prs }}
+          <ul class="oss-pr-list">
+            {{ range . }}
+            <li>
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .title }}</a>
+              {{ with .note }}<span class="oss-pr-note"> — {{ . }}</span>{{ end }}
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+          {{ with .related }}
+          <p class="oss-related muted">Also:
+            {{ range $i, $r := . }}{{ if $i }}, {{ end }}<a href="{{ $r.url }}" target="_blank" rel="noopener noreferrer">{{ $r.title }}</a>{{ end }}
+          </p>
+          {{ end }}
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+
+  {{ with $data.loom }}
+  <section class="oss-section oss-loom" aria-labelledby="oss-loom">
+    <div class="oss-loom-banner">
+      <div class="oss-loom-banner-text">
+        <p class="oss-loom-eyebrow">Co-founder · Techstars</p>
+        <h2 id="oss-loom">{{ .title }}</h2>
+        <p class="oss-loom-blurb">{{ .blurb }}</p>
+        <div class="oss-loom-stats">
+          <span class="oss-loom-stat">
+            <strong>{{ .total_prs }}+</strong>
+            <span>merged PRs across core repos</span>
+          </span>
+          <span class="oss-loom-stat">
+            <strong>{{ len .repos }}</strong>
+            <span>flagship repositories</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="oss-card-list oss-card-list-loom">
+      {{ range .repos }}
+      <article class="oss-card oss-card-compact">
+        <a class="oss-card-preview" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://opengraph.githubassets.com/hyperworks/{{ .repo }}"
+            alt=""
+            width="1200"
+            height="600"
+            loading="lazy"
+            decoding="async">
+        </a>
+        <div class="oss-card-body">
+          <div class="oss-card-top">
+            <h3 class="oss-card-title">
+              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .repo }}</a>
+            </h3>
+            <div class="oss-meta-row">
+              <span class="oss-stars" title="{{ .stars }} stars">
+                <svg class="oss-star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                  <path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+                </svg>
+                <span class="oss-stars-count">{{ .stars_label }}</span>
+              </span>
+              <span class="oss-pr-badge">{{ .prs }} PRs</span>
+              {{ with .lang }}<span class="oss-lang">{{ . }}</span>{{ end }}
+            </div>
+          </div>
+          <p class="oss-blurb">{{ .role }}</p>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{ with $data.other }}
+  <section class="oss-section" aria-labelledby="oss-other">
+    <div class="section-head">
+      <h2 id="oss-other">Other accepted work</h2>
+    </div>
+    <ul class="oss-other-list">
+      {{ range . }}
+      <li>
+        <div class="oss-other-main">
+          <a class="oss-other-repo" href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .repo }}</a>
+          <span class="oss-stars oss-stars-sm" title="{{ .stars }} stars">
+            <svg class="oss-star-icon" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+              <path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+            </svg>
+            {{ .stars_label }}
+          </span>
+        </div>
+        <div class="oss-other-contrib">
+          <a href="{{ .contrib_url }}" target="_blank" rel="noopener noreferrer">{{ .contribution }}</a>
+          {{ with .note }}<span class="muted"> — {{ . }}</span>{{ end }}
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  <section class="oss-section" aria-labelledby="oss-personal">
+    <div class="section-head">
+      <h2 id="oss-personal">Top 10 personal projects</h2>
+    </div>
+    <p class="oss-section-intro muted">
+      Under <a href="https://github.com/mattkanwisher">github.com/mattkanwisher</a>, ordered by stars (with active RE work mixed in).
+    </p>
+
+    <div class="oss-card-list oss-card-list-personal">
+      {{ range $i, $p := $data.personal }}
+      <article class="oss-card oss-card-personal">
+        <a class="oss-card-preview" href="{{ $p.url }}" target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://opengraph.githubassets.com/hyperworks/{{ $p.repo }}"
+            alt=""
+            width="1200"
+            height="600"
+            loading="lazy"
+            decoding="async">
+          <span class="oss-rank" aria-hidden="true">{{ add $i 1 }}</span>
+        </a>
+        <div class="oss-card-body">
+          <div class="oss-card-top">
+            <h3 class="oss-card-title">
+              <a href="{{ $p.url }}" target="_blank" rel="noopener noreferrer">{{ $p.name | default $p.repo }}</a>
+            </h3>
+            <div class="oss-meta-row">
+              <span class="oss-stars" title="{{ $p.stars }} stars">
+                <svg class="oss-star-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                  <path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+                </svg>
+                <span class="oss-stars-count">{{ $p.stars_label }}</span>
+              </span>
+              {{ with $p.lang }}<span class="oss-lang">{{ . }}</span>{{ end }}
+            </div>
+          </div>
+          <p class="oss-blurb">{{ $p.blurb }}</p>
+          {{ with $p.related_page }}
+          <p class="oss-related"><a href="{{ . }}">Blog write-up →</a></p>
+          {{ end }}
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <p class="oss-footer muted">
+    More under <a href="https://github.com/mattkanwisher">github.com/mattkanwisher</a>,
+    including this site (<a href="https://github.com/mattkanwisher/hyperworks.nu">hyperworks.nu</a>)
+    and TensorFleet / Project Lam org work.
+  </p>
+</article>
+{{ end }}

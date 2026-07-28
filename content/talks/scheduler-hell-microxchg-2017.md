@@ -4,7 +4,8 @@ date: 2017-02-17
 year: 2017
 event: microXchg
 city: Berlin
-youtube: mlNI7fYzckg
+youtube: I9qYlOrApms
+youtube_original: mlNI7fYzckg
 slides: /slides/distributed-tracing-hell-berlin.pdf
 tags: [kubernetes, mesos, nomad, docker, devops]
 description: "Choosing between container schedulers — Mesos, Kubernetes, Docker Swarm, Nomad."

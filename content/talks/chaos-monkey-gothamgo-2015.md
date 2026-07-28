@@ -4,7 +4,8 @@ date: 2015-11-24
 year: 2015
 event: GothamGo
 city: New York
-youtube: "-H_Dyx2sct8"
+youtube: 1DstM13jD8E
+youtube_original: "-H_Dyx2sct8"
 slides: /slides/chaos-monkey-on-my-laptop.pdf
 tags: [go, testing, devops, chaos]
 description: "Simulating harsh server conditions and netsplits in local integration tests with VMs and Docker."

@@ -1,0 +1,233 @@
+# Open Source page data — stars snapshot for display (approx)
+
+upstream:
+  - repo: prometheus/prometheus
+    url: https://github.com/prometheus/prometheus
+    stars: 65336
+    stars_label: "65.3k"
+    lang: Go
+    blurb: The monitoring system and time-series database.
+    prs:
+      - title: Make Chunk and ChunkIterator public for reuse
+        url: https://github.com/prometheus/prometheus/pull/2011
+        note: Exposed storage internals so external systems (including DigitalOcean’s Vulcan path) could reuse Prometheus chunk/iterator types without forking the core.
+
+  - repo: mudler/LocalAI
+    url: https://github.com/mudler/LocalAI
+    stars: 47960
+    stars_label: "48k"
+    lang: Go
+    blurb: Open-source AI engine — run LLMs, vision, voice, and more locally.
+    prs:
+      - title: Keep whisper models in memory
+        url: https://github.com/mudler/LocalAI/pull/233
+      - title: Fix upload transcription API not reading POST body
+        url: https://github.com/mudler/LocalAI/pull/229
+    related:
+      - title: go-skynet/localai-website
+        url: https://github.com/go-skynet/localai-website
+
+  - repo: joonspk-research/generative_agents
+    url: https://github.com/joonspk-research/generative_agents
+    stars: 21820
+    stars_label: "21.8k"
+    lang: Python
+    blurb: Stanford’s Generative Agents — interactive simulacra of human behavior.
+    prs:
+      - title: Make the project buildable on M1 Apple Silicon Macs
+        url: https://github.com/joonspk-research/generative_agents/pull/11
+
+  - repo: hashicorp/nomad
+    url: https://github.com/hashicorp/nomad
+    stars: 16761
+    stars_label: "16.8k"
+    lang: Go
+    blurb: Workload orchestrator for containers and non-containerized apps.
+    prs:
+      - title: Jobs tests were sending invalid jobs
+        url: https://github.com/hashicorp/nomad/pull/3480
+
+  - repo: lokalise/i18n-ally
+    url: https://github.com/lokalise/i18n-ally
+    stars: 4888
+    stars_label: "4.9k"
+    lang: TypeScript
+    blurb: All-in-one i18n extension for VS Code.
+    prs:
+      - title: Add Svelte 2.0 / SvelteKit detection
+        url: https://github.com/lokalise/i18n-ally/pull/815
+      - title: Fix English spelling in choice prompt
+        url: https://github.com/lokalise/i18n-ally/pull/814
+
+  - repo: thrasher-corp/gocryptotrader
+    url: https://github.com/thrasher-corp/gocryptotrader
+    stars: 3453
+    stars_label: "3.5k"
+    lang: Go
+    blurb: Multi-exchange cryptocurrency trading bot and framework.
+    prs:
+      - title: Consistent sandbox access on Gemini and GDAX
+        url: https://github.com/thrasher-corp/gocryptotrader/pull/60
+
+  - repo: ConsenSys-archive/ganache-cli-archive
+    name: ConsenSys / ganache-cli
+    url: https://github.com/ConsenSys-archive/ganache-cli-archive
+    stars: 3320
+    stars_label: "3.3k"
+    lang: JavaScript
+    blurb: Fast Ethereum RPC client for local testing (Truffle/Ganache lineage).
+    prs:
+      - title: Add ability to save accounts and private keys on startup
+        url: https://github.com/ConsenSys-archive/ganache-cli-archive/pull/406
+      - title: truffle-hdwallet-provider — personal_eth_sign
+        url: https://github.com/ConsenSys-archive/truffle-hdwallet-provider/pull/67
+
+  - repo: CryptozombiesHQ/cryptozombie-lessons
+    url: https://github.com/CryptozombiesHQ/cryptozombie-lessons
+    stars: 1082
+    stars_label: "1.1k"
+    lang: TypeScript
+    blurb: Lesson content for cryptozombies.io — interactive Solidity education.
+    founder: true
+    prs:
+      - title: Lesson 6 and course maintenance
+        url: https://github.com/CryptozombiesHQ/cryptozombie-lessons/pull/207
+        note: Co-founder of Loom / CryptoZombies — lessons, lander, licenses.
+
+loom:
+  title: Loom Network
+  badge: Founder
+  blurb: Built and maintained the DAppChain stack and tooling as co-founder of Loom Network (Techstars). High-volume maintainer work across the engine, SDKs, and Plasma Cash.
+  total_prs: 136
+  repos:
+    - repo: loomnetwork/loomchain
+      url: https://github.com/loomnetwork/loomchain
+      stars: 157
+      stars_label: "157"
+      lang: Go
+      role: DAppChain engine — perf, DPoS, validators, storage
+      prs: 94
+    - repo: loomnetwork/go-loom
+      url: https://github.com/loomnetwork/go-loom
+      stars: 183
+      stars_label: "183"
+      lang: Go
+      role: Go SDK / plugins / smart contracts
+      prs: 27
+    - repo: loomnetwork/plasma-cash
+      url: https://github.com/loomnetwork/plasma-cash
+      stars: 267
+      stars_label: "267"
+      lang: JavaScript
+      role: Plasma Cash contracts & client (ERC-721/20/ETH)
+      prs: 13
+    - repo: loomnetwork/loom-js
+      url: https://github.com/loomnetwork/loom-js
+      stars: 202
+      stars_label: "202"
+      lang: TypeScript
+      role: Browser & Node client for DAppChains
+      prs: 2
+
+other:
+  - repo: heroiclabs/nakama-dotnet
+    url: https://github.com/heroiclabs/nakama-dotnet
+    stars: 166
+    stars_label: "166"
+    contribution: WebSocket compatibility for WASM and Blazor
+    contrib_url: https://github.com/heroiclabs/nakama-dotnet/pull/89
+    note: .NET client for Nakama game server
+  - repo: certusone/yubihsm-go
+    url: https://github.com/certusone/yubihsm-go
+    stars: 39
+    stars_label: "39"
+    contribution: Additional HSM methods
+    contrib_url: https://github.com/certusone/yubihsm-go/pull/3
+    note: Go client for YubiHSM2
+  - repo: certusone/aiakos
+    url: https://github.com/certusone/aiakos
+    stars: 16
+    stars_label: "16"
+    contribution: Flexible Tendermint versioning
+    contrib_url: https://github.com/certusone/aiakos/pull/1
+    note: PrivValidator on YubiHSM2
+  - repo: wantedly/apig
+    url: https://github.com/wantedly/apig
+    stars: 326
+    stars_label: "326"
+    contribution: MySQL project generation support
+    contrib_url: https://github.com/wantedly/apig/pull/117
+    note: Go REST API generator
+
+personal:
+  - repo: mattkanwisher/microservices-book-code
+    name: microservices-book-code
+    url: https://github.com/mattkanwisher/microservices-book-code
+    stars: 62
+    stars_label: "62"
+    lang: Go
+    blurb: Companion source for Microservices in Go (microservicesingo.com).
+  - repo: mattkanwisher/driftwood.js
+    name: driftwood.js
+    url: https://github.com/mattkanwisher/driftwood.js
+    stars: 24
+    stars_label: "24"
+    lang: JavaScript
+    blurb: Dirt-simple logging framework for JavaScript.
+  - repo: mattkanwisher/cryptofiend
+    name: cryptofiend
+    url: https://github.com/mattkanwisher/cryptofiend
+    stars: 13
+    stars_label: "13"
+    lang: Go
+    blurb: Opinionated Go libraries for crypto trading bots and exchange experiments.
+  - repo: mattkanwisher/distributedtrace
+    name: distributedtrace
+    url: https://github.com/mattkanwisher/distributedtrace
+    stars: 6
+    stars_label: "6"
+    lang: Go
+    blurb: Zipkin-compatible distributed tracing backend in Go.
+  - repo: mattkanwisher/iphone_dj
+    name: iphone_dj
+    url: https://github.com/mattkanwisher/iphone_dj
+    stars: 5
+    stars_label: "5"
+    lang: Objective-C
+    blurb: DJ from your iPhone — early mobile audio experiment.
+  - repo: mattkanwisher/html5_tetris_multiplayer
+    name: html5_tetris_multiplayer
+    url: https://github.com/mattkanwisher/html5_tetris_multiplayer
+    stars: 2
+    stars_label: "2"
+    lang: JavaScript
+    blurb: Netris-style multiplayer Tetris clone in HTML5.
+  - repo: mattkanwisher/python_bkk
+    name: python_bkk
+    url: https://github.com/mattkanwisher/python_bkk
+    stars: 2
+    stars_label: "2"
+    lang: JavaScript
+    blurb: Blockchain examples from a Python meetup in Bangkok.
+  - repo: mattkanwisher/ranger
+    name: ranger
+    url: https://github.com/mattkanwisher/ranger
+    stars: 1
+    stars_label: "1"
+    lang: Go
+    blurb: Unix system monitor in Go.
+  - repo: mattkanwisher/gaime_mods
+    name: gaime_mods
+    url: https://github.com/mattkanwisher/gaime_mods
+    stars: 0
+    stars_label: "0"
+    lang: C
+    blurb: Reverse engineering the G'AIM'E Time Crisis light-gun console (Allwinner A523).
+    related_page: /blog/gaime-lightgun-reverse-engineering/
+  - repo: mattkanwisher/demo_stocks_digitalocean
+    name: demo_stocks_digitalocean
+    url: https://github.com/mattkanwisher/demo_stocks_digitalocean
+    stars: 1
+    stars_label: "1"
+    lang: JavaScript
+    blurb: Realtime market-data demo from Fintegrate Mumbai 2017.

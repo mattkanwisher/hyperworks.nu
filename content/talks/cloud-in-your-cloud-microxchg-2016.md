@@ -4,7 +4,8 @@ date: 2016-02-05
 year: 2016
 event: microXchg
 city: Berlin
-youtube: tFzMB-7By0o
+youtube: P_qdC3VeZOk
+youtube_original: tFzMB-7By0o
 tags: [go, microservices, cloud, digitalocean]
 description: "How DigitalOcean builds cloud infrastructure with Go microservices."
 ---

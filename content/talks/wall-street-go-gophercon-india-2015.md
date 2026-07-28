@@ -4,7 +4,8 @@ date: 2015-03-11
 year: 2015
 event: GopherCon India
 city: India
-youtube: mDTg1dLUqBE
+youtube: Pm4fmCplb7o
+youtube_original: mDTg1dLUqBE
 tags: [go, systems, messaging]
 description: "Building and scaling a financial instant messenger with Go."
 ---

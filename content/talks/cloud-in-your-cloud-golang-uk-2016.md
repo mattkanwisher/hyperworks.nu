@@ -4,7 +4,8 @@ date: 2016-09-07
 year: 2016
 event: Golang UK / GopherCon UK
 city: London
-youtube: NwWVhRAiW7k
+youtube: TLRFvKcE5Vk
+youtube_original: NwWVhRAiW7k
 tags: [go, microservices, cloud, digitalocean]
 description: "UK GopherCon edition — building DigitalOcean with Go."
 ---
