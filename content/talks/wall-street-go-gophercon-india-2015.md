@@ -8,6 +8,7 @@ youtube: Pm4fmCplb7o
 youtube_original: mDTg1dLUqBE
 tags: [go, systems, messaging]
 description: "Building and scaling a financial instant messenger with Go."
+slides: /slides/wall-street-go-gophercon-india-2015.pdf
 ---
 
 **GopherCon India 2015**

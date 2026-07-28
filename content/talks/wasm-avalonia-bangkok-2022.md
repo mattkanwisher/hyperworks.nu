@@ -6,6 +6,7 @@ event: Bangkok meetup
 city: Bangkok
 tags: [wasm, dotnet, avalonia]
 description: "Cross-platform apps with Avalonia and WebAssembly."
+slides: /slides/wasm-avalonia-bangkok-2022.pdf
 ---
 
 **Bangkok meetup · 2022**

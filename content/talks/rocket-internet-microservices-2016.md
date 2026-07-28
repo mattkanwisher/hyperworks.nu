@@ -11,3 +11,5 @@ description: "Microservices talk at Rocket Internet Conf 2016."
 **Rocket Internet Conf 2016 · Berlin**
 
 DigitalOcean microservices practices for a product/engineering audience — how cloud control planes are factored and operated. SlideShare: *DigitalOcean Microservices Talk Rocket Internet Conf '16*.
+
+Slides on [SlideShare](https://www.slideshare.net/slideshow/digitalocean-microservices-talk-rock-internet-conf/66472084).

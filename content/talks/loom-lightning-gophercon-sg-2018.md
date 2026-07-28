@@ -8,6 +8,7 @@ youtube: -sRnwLx9nAU
 youtube_original: Aw9HRaR_t3A
 tags: [blockchain, loom]
 description: "Loom Network sponsor lightning talk."
+slides: /slides/loom-lightning-gophercon-sg-2018.pdf
 ---
 
 **GopherCon Singapore 2018** (sponsor lightning)

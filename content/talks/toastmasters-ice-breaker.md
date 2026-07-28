@@ -6,6 +6,7 @@ event: Toastmasters Thailand
 city: Bangkok
 tags: [speaking]
 description: "Toastmasters ice breaker."
+slides: /slides/toastmasters-ice-breaker.pdf
 ---
 
 **Toastmasters Thailand · ice breaker**

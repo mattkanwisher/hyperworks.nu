@@ -8,6 +8,7 @@ youtube: OjGZaD1plRw
 youtube_original: BzDUl9UrLRg
 tags: [go, blockchain, ethereum]
 description: "Building blockchain applications with Go."
+slides: /slides/blockchain-apps-gophercon-uk-2018.pdf
 ---
 
 **GopherCon UK 2018 · London**

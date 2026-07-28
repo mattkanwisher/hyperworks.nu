@@ -8,6 +8,7 @@ youtube: Cz8seJmJCR0
 youtube_original: Epd3aMQtfZQ
 tags: [blockchain, plasma, gaming, ethereum]
 description: "How Plasma Cash changes blockchain gaming — ownership and forkability."
+slides: /slides/plasma-gaming.pdf
 ---
 
 **Ethereum Devcon 4 · Prague**
@@ -22,3 +23,5 @@ description: "How Plasma Cash changes blockchain gaming — ownership and forkab
 - CryptoZombies as onboarding; hiring/community at the time
 
 Also: [archive.devcon.org](https://archive.devcon.org/devcon-4/practical-plasma-gaming/).
+
+Also delivered at [Upbit Developers Conference](/talks/plasma-gaming-upbit-korea-2018/) (same slides).

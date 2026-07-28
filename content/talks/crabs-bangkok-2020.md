@@ -6,6 +6,7 @@ event: Bangkok meetup
 city: Bangkok
 tags: [python, ml, iot, computer-vision]
 description: "Soft-shell crab farming meets computer vision / Python (OctoVision era)."
+slides: /slides/crabs-bangkok-2020.pdf
 ---
 
 **Bangkok meetup · ~2020**

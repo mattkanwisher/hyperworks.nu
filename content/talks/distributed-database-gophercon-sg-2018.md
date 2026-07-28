@@ -8,6 +8,7 @@ youtube: 8aV0XCwEcZU
 youtube_original: k0-WyZCKF5I
 tags: [go, databases, distributed-systems]
 description: "Deep dive into building distributed databases in Go."
+slides: /slides/distributed-database-gophercon-sg-2018.pdf
 ---
 
 **GopherCon Singapore 2018**

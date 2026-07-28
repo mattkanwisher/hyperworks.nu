@@ -13,3 +13,5 @@ description: "GopherCon India edition of the DigitalOcean cloud microservices ta
 **GopherCon India 2016**
 
 Go-centric cut of *Cloud in your Cloud* — building DigitalOcean’s platform with Go microservices, multi-DC operations, and production war stories.
+
+Slides on [SlideShare](https://www.slideshare.net/slideshow/cloud-in-your-cloud/58600520).

@@ -8,6 +8,7 @@ youtube: I6FIc09RbQI
 youtube_original: drpzgnPNno8
 tags: [blockchain, ethereum, python]
 description: "Developing blockchain apps — Loom Network era intro for Python developers."
+slides: /slides/intro-blockchain-python-bangkok.pdf
 ---
 
 **Bangkok Python Meetup**

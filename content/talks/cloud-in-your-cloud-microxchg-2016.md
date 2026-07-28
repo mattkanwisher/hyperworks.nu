@@ -20,3 +20,5 @@ How DigitalOcean builds the cloud: **Go microservices** across many datacenters,
 - Scaling org + codebase past a single monolith (DO’s early Perl stack → dozens of services)
 
 Same core talk also given at GopherCon India and Golang UK 2016.
+
+Slides on [SlideShare](https://www.slideshare.net/slideshow/cloud-in-your-cloud/58600520).
