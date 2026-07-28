@@ -4,8 +4,8 @@ date: 2016-08-25
 year: 2016
 event: PromCon
 city: Berlin
-youtube: xoBLEjIws1c
-youtube_original: likpVWB5Lvo
+youtube: likpVWB5Lvo
+youtube_backup: xoBLEjIws1c
 slides: /slides/promcon-2016-scaling-prometheus.pdf
 tags: [prometheus, monitoring, devops, digitalocean]
 description: "Scaling Prometheus-based monitoring at DigitalOcean."

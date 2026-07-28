@@ -4,8 +4,8 @@ date: 2016-03-29
 year: 2016
 event: GopherCon India
 city: India
-youtube: Rxw8VdU23-8
-youtube_original: 4bCaSSQsKvQ
+youtube: 4bCaSSQsKvQ
+youtube_backup: Rxw8VdU23-8
 tags: [go, microservices, cloud, digitalocean]
 description: "GopherCon India edition of the DigitalOcean cloud microservices talk."
 ---

@@ -4,8 +4,8 @@ date: 2017-11-16
 year: 2017
 event: Bangkok Python Meetup
 city: Bangkok
-youtube: I6FIc09RbQI
-youtube_original: drpzgnPNno8
+youtube: drpzgnPNno8
+youtube_backup: I6FIc09RbQI
 tags: [blockchain, ethereum, python]
 description: "Developing blockchain apps — Loom Network era intro for Python developers."
 slides: /slides/intro-blockchain-python-bangkok.pdf

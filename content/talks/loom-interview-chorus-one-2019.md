@@ -3,8 +3,8 @@ title: "Interview: Loom Network CEO"
 date: 2019-04-15
 year: 2019
 event: Chorus One
-youtube: Rn-5soIGmvI
-youtube_original: rnDoj0VXErw
+youtube: rnDoj0VXErw
+youtube_backup: Rn-5soIGmvI
 tags: [blockchain, loom, interview]
 description: "Interview with Brendan Dillon (Chorus One) on Loom Network."
 ---

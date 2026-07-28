@@ -4,8 +4,8 @@ date: 2018-05-05
 year: 2018
 event: GopherCon Singapore
 city: Singapore
-youtube: -sRnwLx9nAU
-youtube_original: Aw9HRaR_t3A
+youtube: Aw9HRaR_t3A
+youtube_backup: "-sRnwLx9nAU"
 tags: [blockchain, loom]
 description: "Loom Network sponsor lightning talk."
 slides: /slides/loom-lightning-gophercon-sg-2018.pdf

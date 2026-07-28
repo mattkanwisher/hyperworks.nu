@@ -4,8 +4,8 @@ date: 2018-08-30
 year: 2018
 event: GopherCon UK
 city: London
-youtube: OjGZaD1plRw
-youtube_original: BzDUl9UrLRg
+youtube: BzDUl9UrLRg
+youtube_backup: OjGZaD1plRw
 tags: [go, blockchain, ethereum]
 description: "Building blockchain applications with Go."
 slides: /slides/blockchain-apps-gophercon-uk-2018.pdf

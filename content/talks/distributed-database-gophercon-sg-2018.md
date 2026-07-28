@@ -4,8 +4,8 @@ date: 2018-05-05
 year: 2018
 event: GopherCon Singapore
 city: Singapore
-youtube: 8aV0XCwEcZU
-youtube_original: k0-WyZCKF5I
+youtube: k0-WyZCKF5I
+youtube_backup: 8aV0XCwEcZU
 tags: [go, databases, distributed-systems]
 description: "Deep dive into building distributed databases in Go."
 slides: /slides/distributed-database-gophercon-sg-2018.pdf

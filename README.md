@@ -44,7 +44,7 @@ hugo new content/blog/my-post-title.md
 
 ### Adding a talk
 
-Create `content/talks/slug.md` with front matter: `title`, `date`, `year`, `event`, `city`, optional `youtube`, `slides`, `tags`, `description`.
+Create `content/talks/slug.md` with front matter: `title`, `date`, `year`, `event`, `city`, optional `youtube`, `youtube_backup`, `slides`, `tags`, `description`. Keep `youtube` pointed at the original public recording; use `youtube_backup` for the personal preservation copy.
 
 ## Deploy on Cloudflare
 
