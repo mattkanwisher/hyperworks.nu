@@ -129,4 +129,4 @@ Special thanks to mrlauer on the [Golang-nuts](https://groups.google.com/forum/?
 
 ---
 
-*Originally written while building [Errplane](http://errplane.com) — a Go service for Rails exception tracking, log aggregation, and alerting / monitoring.*
+*Originally written while building Errplane — a Go service for Rails exception tracking, log aggregation, and alerting / monitoring (site no longer online).*
