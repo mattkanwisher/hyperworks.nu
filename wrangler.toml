@@ -1,0 +1,10 @@
+# Cloudflare Workers static assets (CLI deploy of Hugo public/)
+# Permanent deploys: prefer Cloudflare Pages connected to GitHub (see README).
+# Docs: https://developers.cloudflare.com/workers/static-assets/
+
+name = "hyperworks-nu"
+compatibility_date = "2026-07-28"
+
+[assets]
+directory = "./public"
+not_found_handling = "404-page"

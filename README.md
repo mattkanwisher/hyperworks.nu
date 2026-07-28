@@ -2,7 +2,7 @@
 
 Personal site for **Matthew Campbell** (@kanwisher) — work, blog, talks, and future YouTube.
 
-Formerly **kanwisher.com**. Static site built with [Hugo](https://gohugo.io/) and Markdown.
+Formerly **kanwisher.com**. Static site built with [Hugo](https://gohugo.io/) and Markdown. Hosted on **Cloudflare**.
 
 ## Quick start
 
@@ -15,9 +15,11 @@ hugo server -D
 Build for production:
 
 ```bash
-hugo
-# output in public/  → deploy to S3 / Cloudflare / any static host
+hugo --gc --minify
+# output in public/
 ```
+
+Theme is **dark by default** (`color-scheme: dark`).
 
 ## Content
 
@@ -28,71 +30,70 @@ hugo
 | `content/about.md` | About |
 | `content/work.md` | Work / projects |
 | `static/images/` | Images (headshot, etc.) |
-| `static/slides/` | Optional PDF slide decks |
-| `layouts/` | HTML templates (minimal custom theme) |
+| `static/slides/` | Optional PDF slide decks (keep under 25 MiB/file for Workers) |
+| `layouts/` | HTML templates |
 | `assets/css/main.css` | Styles |
+| `wrangler.toml` | Cloudflare Workers static assets config |
+| `static/_headers` | Cloudflare Pages/Workers security headers |
 
 ### Adding a blog post
 
 ```bash
-hugo new blog/my-post-title.md
-# edit content/blog/my-post-title.md
+hugo new content/blog/my-post-title.md
 ```
 
 ### Adding a talk
 
-Create `content/talks/slug.md`:
+Create `content/talks/slug.md` with front matter: `title`, `date`, `year`, `event`, `city`, optional `youtube`, `slides`, `tags`, `description`.
 
-```yaml
----
-title: "Talk title"
-date: 2018-05-05
-year: 2018
-event: GopherCon Singapore
-city: Singapore
-youtube: k0-WyZCKF5I   # optional YouTube video ID
-slides: /slides/foo.pdf # optional
-tags: [go, databases]
-description: One-line summary.
----
+## Deploy on Cloudflare
 
-Talk abstract / notes in Markdown…
-```
+### Option A — Cloudflare Pages (recommended permanent)
 
-## Related local archives (not in this repo)
+Same account that already holds **kanwisher.com** DNS.
 
-- Videos + catalog: `~/Archives/hyperworks-media/`
-- Original slide sources: `~/projects/me/conferences/slides/`
+1. [Cloudflare dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+2. Select **`mattkanwisher/hyperworks.nu`**
+3. Build settings:
 
-## Deploy (Netlify)
+   | Field | Value |
+   |-------|--------|
+   | Framework preset | Hugo |
+   | Build command | `hugo --gc --minify` |
+   | Build output directory | `public` |
+   | Root directory | `/` |
+   | Environment variable | `HUGO_VERSION` = `0.164.0` |
 
-This repo includes `netlify.toml`:
+4. **Custom domains** → add **`hyperworks.nu`** (and `www` if you want)  
+   - If the zone is already on Cloudflare, it will attach DNS for you.
+5. Every push to `master` redeploys.
 
-| Setting | Value |
-|---------|--------|
-| Build command | `hugo --gc --minify` |
-| Publish dir | `public` |
-| Hugo version | set in `netlify.toml` (`HUGO_VERSION`) |
+### Option B — Cloudflare Drop / Wrangler (CLI)
 
-1. Push this repo to GitHub/GitLab.
-2. [New site from Git](https://app.netlify.com/start) → pick the repo.
-3. Netlify reads `netlify.toml` automatically.
-4. Add custom domain **hyperworks.nu** in Domain settings (DNS: Netlify nameservers or a CNAME/ALIAS).
-
-Local production check:
+[Cloudflare Drop](https://www.cloudflare.com/drop/) is instant static hosting. Temporary previews expire unless **claimed within 60 minutes**.
 
 ```bash
+# Node 22+
 hugo --gc --minify
-npx serve public   # optional smoke test
+
+# Temporary preview (no login) — claim URL printed in the output
+npx wrangler@4.102.0 deploy ./public \
+  --name hyperworks-nu \
+  --temporary \
+  --compatibility-date 2026-07-28
+
+# Permanent (after wrangler login to your real Cloudflare account)
+npx wrangler login
+npx wrangler deploy ./public --name hyperworks-nu
 ```
 
-Theme is **dark by default** (`color-scheme: dark` on `html` / meta).
+**Limits:** temporary Drop accounts enforce ~**5 MiB per file**. Large slide PDFs are fine on full Pages/Workers (~25 MiB). Host big decks externally or compress if Drop rejects them.
 
 ### Git remotes (local)
 
 | Remote | Repo |
 |--------|------|
-| `hyperworks` | [mattkanwisher/hyperworks.nu](https://github.com/mattkanwisher/hyperworks.nu) — **primary** (Netlify) |
+| `hyperworks` | [mattkanwisher/hyperworks.nu](https://github.com/mattkanwisher/hyperworks.nu) — **primary** |
 | `origin` | `mattkanwisher/kanwisher_com` — legacy |
 
 ```bash
@@ -101,20 +102,20 @@ git push hyperworks master
 
 ## Redirecting kanwisher.com → hyperworks.nu
 
-`kanwisher.com` is **not** on GitHub Pages. DNS is **Cloudflare**; origin is **S3** (static files last updated ~2017).
+`kanwisher.com` is already on **Cloudflare DNS**; origin is old **S3** (~2017). You do **not** need GitHub Pages.
 
-**Best option — Cloudflare Redirect Rule** (no S3 changes):
+After `hyperworks.nu` is live on Cloudflare Pages:
 
-1. Cloudflare dashboard → zone **kanwisher.com**
-2. **Rules** → **Redirect Rules** → Create rule  
-   - Name: `kanwisher → hyperworks`  
-   - If: Hostname equals `kanwisher.com` **OR** `www.kanwisher.com`  
-   - Then: Dynamic redirect  
-     - `concat("https://hyperworks.nu", http.request.uri.path)`  
-     - Status: **301**  
-     - Preserve query string: on  
-3. Optionally add the same for any path variants.
+1. Zone **kanwisher.com** → **Rules** → **Redirect Rules** → Create  
+2. If: hostname is `kanwisher.com` **or** `www.kanwisher.com`  
+3. Then: **301** to  
+   `concat("https://hyperworks.nu", http.request.uri.path)`  
+   (preserve query string)  
+4. Optional later: empty the S3 bucket or set S3 “redirect all requests” as a belt-and-suspenders.
 
-**Alternative — S3 website redirect:** if the bucket is in website hosting mode, set *Static website hosting → Redirect all requests* to `hyperworks.nu`. Cloudflare still needs to point at that bucket (or use Cloudflare-only redirect and ignore S3).
+Same Cloudflare account can hold both zones (`kanwisher.com` + `hyperworks.nu`).
 
-**Not GitHub Pages:** changing `mattkanwisher/kanwisher_com` will not affect live traffic until DNS/origin change.
+## Related local archives (not in this repo)
+
+- Videos + catalog: `~/Archives/hyperworks-media/`
+- Original slide sources: `~/projects/me/conferences/slides/`

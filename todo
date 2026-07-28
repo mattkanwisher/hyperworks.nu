@@ -1,7 +1,9 @@
-Deploy on Netlify (netlify.toml ready) — connect repo + hyperworks.nu DNS
+Cloudflare Pages: connect mattkanwisher/hyperworks.nu + custom domain hyperworks.nu
+Claim Drop preview (if still within 60 min) OR skip and use Pages Git deploy
+kanwisher.com: Cloudflare Redirect Rule → https://hyperworks.nu (301)
 Static blog engine — done (Hugo), dark theme default
 Blog: G'AIM'E RE + OSCR cartreader — done
-Add more PDFs under static/slides/
+Add more PDFs under static/slides/ (keep under 25 MiB/file)
 Update headshot
 Import remaining SlideShare decks
 Restore full text of old kanwisher.com posts from Wayback
