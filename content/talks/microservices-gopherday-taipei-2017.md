@@ -3,6 +3,7 @@ title: "Intro to Microservices"
 date: 2017-06-28
 year: 2017
 event: GopherDay Taipei / GopherCon Taipei
+slides: /slides/intro-microservices-taiwan-2017.pdf
 city: Taipei
 tags: [go, microservices]
 description: Intro to microservices in Go — GopherDay Taipei 2017.

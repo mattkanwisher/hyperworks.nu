@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="inner">
-    <a class="logo" href="{{ "/" | relURL }}">hyperworks<span>.nu</span></a>
+    <a class="logo" href="{{ "/" | relURL }}">{{ .Site.Params.author }}</a>
     <nav>
       <ul class="nav">
         {{ range .Site.Menus.main }}

@@ -3,6 +3,7 @@ title: "Distributed Timeseries Database in Go"
 date: 2017-02-24
 year: 2017
 event: GopherCon India
+slides: /slides/distributed-timeseries-database.pdf
 city: India
 tags: [go, prometheus, timeseries, cassandra, kafka]
 description: Building Vulcan — a Prometheus-compatible distributed timeseries database in Go.

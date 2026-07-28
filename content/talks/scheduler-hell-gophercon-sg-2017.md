@@ -5,6 +5,7 @@ year: 2017
 event: GopherCon Singapore
 city: Singapore
 youtube: ttmzQbaYjjk
+slides: /slides/distributed-scheduler-hell-gophercon-sg-2017.pdf
 tags: [go, kubernetes, containers]
 description: GopherCon SG edition of Distributed Scheduler Hell.
 ---
