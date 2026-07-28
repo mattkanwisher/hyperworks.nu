@@ -13,7 +13,6 @@
     {{ range .Params.tags }}
       {{ if in $cryptoTags . }}{{ $isCrypto = true }}{{ end }}
     {{ end }}
-    {{/* Title fallback if tags incomplete */}}
     {{ $t := lower .Title }}
     {{ if or (in $t "blockchain") (in $t "plasma") (in $t "loom") (in $t "ethereum") }}
       {{ $isCrypto = true }}
@@ -23,7 +22,6 @@
     {{ end }}
   {{ end }}
 {{ end }}
-{{/* Prefer variety: skip duplicate titles in the top 3 */}}
 {{ $featured := slice }}
 {{ range $systemsVideo }}
   {{ if lt (len $featured) 3 }}
@@ -44,10 +42,10 @@
   {{ if not $inFeatured }}{{ $more = $more | append $v }}{{ end }}
 {{ end }}
 
-<div class="wrap wrap-home">
-  <section class="hero">
+<div class="wrap wrap-home home-compact">
+  <section class="hero hero-compact">
     {{ with .Site.Params.headshot }}
-    <img src="{{ . }}" alt="{{ $.Site.Params.author }}" width="120" height="150">
+    <img src="{{ . }}" alt="{{ $.Site.Params.author }}" width="88" height="110">
     {{ end }}
     <div>
       <h1>Matthew Campbell</h1>
@@ -55,9 +53,6 @@
         Hardware reverse engineering, Go, distributed systems, and open robotics.
         Building <a href="https://tensorfleet.net">TensorFleet</a>.
         Previously DigitalOcean, Loom Network / CryptoZombies, Bloomberg, Thomson Reuters.
-      </p>
-      <p class="muted">
-        Talk videos, technical blog, and work notes — formerly <code>kanwisher.com</code>.
       </p>
       <div class="hero-meta">
         <a href="{{ .Site.Params.twitter }}">@kanwisher</a>
@@ -69,22 +64,47 @@
     </div>
   </section>
 
-  <div class="section-head">
+  {{/* Blog first, then talks — both compact so talks stay on first screen */}}
+  <div class="section-head section-head-compact">
+    <h2>From the blog</h2>
+    <a href="{{ "blog/" | relURL }}">All posts →</a>
+  </div>
+  <ul class="blog-card-list home-blog-list">
+    {{ $posts := where .Site.RegularPages "Section" "blog" }}
+    {{ range first 3 $posts.ByDate.Reverse }}
+    <li>
+      <a class="blog-card" href="{{ .RelPermalink }}">
+        {{ with .Params.image }}
+        <div class="blog-card-thumb">
+          <img src="{{ . }}" alt="" width="480" height="270" loading="lazy" decoding="async">
+        </div>
+        {{ end }}
+        <div class="blog-card-body">
+          <h3>{{ .Title }}</h3>
+          <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+          {{ with .Description }}<p>{{ . | truncate 100 }}</p>{{ end }}
+        </div>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+
+  <div class="section-head section-head-compact">
     <h2>Talks with video</h2>
     <a href="{{ "speaking/" | relURL }}">Speaker reel →</a>
   </div>
 
   {{ if $featured }}
-  <div class="video-grid">
+  <div class="video-grid video-grid-home">
     {{ range $featured }}
     {{ $yt := .Params.youtube | string }}
     <a class="video-card" href="{{ .RelPermalink }}">
       <div class="video-thumb">
         <img
-          src="https://i.ytimg.com/vi/{{ $yt }}/hqdefault.jpg"
+          src="https://i.ytimg.com/vi/{{ $yt }}/mqdefault.jpg"
           alt=""
-          width="480"
-          height="360"
+          width="320"
+          height="180"
           loading="lazy"
           decoding="async">
         <span class="play-badge" aria-hidden="true">▶</span>
@@ -94,7 +114,6 @@
         <div class="meta">
           {{ with .Params.event }}{{ . }}{{ end }}
           {{ with .Params.year }} · {{ . }}{{ end }}
-          {{ with .Params.city }} · {{ . }}{{ end }}
         </div>
       </div>
     </a>
@@ -103,8 +122,8 @@
   {{ end }}
 
   {{ if $more }}
-  <ul class="talk-link-list">
-    {{ range $more }}
+  <ul class="talk-link-list talk-link-list-home">
+    {{ range first 8 $more }}
     <li>
       <a href="{{ .RelPermalink }}">
         <span class="talk-link-title">{{ .Title }}</span>
@@ -116,30 +135,9 @@
     </li>
     {{ end }}
   </ul>
+  {{ if gt (len $more) 8 }}
+  <p class="home-more-link muted"><a href="{{ "speaking/" | relURL }}">All talks on the speaker reel →</a></p>
   {{ end }}
-
-  <div class="section-head">
-    <h2>From the blog</h2>
-    <a href="{{ "blog/" | relURL }}">All posts →</a>
-  </div>
-  <ul class="blog-card-list home-blog-list">
-    {{ $posts := where .Site.RegularPages "Section" "blog" }}
-    {{ range first 3 $posts.ByDate.Reverse }}
-    <li>
-      <a class="blog-card" href="{{ .RelPermalink }}">
-        {{ with .Params.image }}
-        <div class="blog-card-thumb">
-          <img src="{{ . }}" alt="" width="640" height="360" loading="lazy" decoding="async">
-        </div>
-        {{ end }}
-        <div class="blog-card-body">
-          <h3>{{ .Title }}</h3>
-          <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
-          {{ with .Description }}<p>{{ . }}</p>{{ end }}
-        </div>
-      </a>
-    </li>
-    {{ end }}
-  </ul>
+  {{ end }}
 </div>
 {{ end }}
