@@ -71,6 +71,140 @@ img {
   margin-inline: auto;
 }
 
+.wrap-home {
+  width: min(100% - 2rem, var(--wide));
+}
+
+/* Homepage video talk cards */
+.video-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.video-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.92;
+}
+
+.video-card:hover .video-thumb img {
+  opacity: 1;
+}
+
+.play-badge {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  padding-left: 2px;
+  pointer-events: none;
+}
+
+.video-card-body {
+  padding: 0.75rem 0.9rem 1rem;
+}
+
+.video-card-body h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+
+.video-card-body .meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Compact list for remaining video talks */
+.talk-link-list {
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.talk-link-list li + li {
+  border-top: 1px solid var(--border);
+}
+
+.talk-link-list a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.7rem 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.talk-link-list a:hover {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: inherit;
+}
+
+.talk-link-title {
+  font-weight: 500;
+  color: var(--link);
+}
+
+.talk-link-list a:hover .talk-link-title {
+  color: var(--accent);
+}
+
+.talk-link-list .meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
 /* Header */
 .site-header {
   border-bottom: 1px solid var(--border);

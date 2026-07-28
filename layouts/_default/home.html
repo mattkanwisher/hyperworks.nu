@@ -1,5 +1,15 @@
 {{ define "main" }}
-<div class="wrap">
+{{/* Talks with video, newest first */}}
+{{ $videoTalks := slice }}
+{{ range (where .Site.RegularPages "Section" "talks").ByDate.Reverse }}
+  {{ if .Params.youtube }}
+    {{ $videoTalks = $videoTalks | append . }}
+  {{ end }}
+{{ end }}
+{{ $featured := first 3 $videoTalks }}
+{{ $more := after 3 $videoTalks }}
+
+<div class="wrap wrap-home">
   <section class="hero">
     {{ with .Site.Params.headshot }}
     <img src="{{ . }}" alt="{{ $.Site.Params.author }}" width="120" height="150">
@@ -8,45 +18,70 @@
       <h1>Matthew Campbell</h1>
       <p class="lead">
         Hardware reverse engineering, Go, distributed systems, and open robotics.
-        Building <a href="https://tensorfleet.net">TensorFleet</a>. Previously DigitalOcean, Loom Network / CryptoZombies, Bloomberg, Thomson Reuters.
-        Latest: <a href="{{ "blog/gaime-lightgun-reverse-engineering/" | relURL }}">G'AIM'E light gun RE</a>
-        · <a href="{{ "blog/oscr-cartreader-macos-android/" | relURL }}">OSCR cart reader companions</a>.
+        Building <a href="https://tensorfleet.net">TensorFleet</a>.
+        Previously DigitalOcean, Loom Network / CryptoZombies, Bloomberg, Thomson Reuters.
       </p>
-      <p>
-        This site is the home for my work, blog, conference talks, and (soon) YouTube.
-        Formerly <code>kanwisher.com</code> — now <strong>hyperworks.nu</strong>.
+      <p class="muted">
+        Talk videos, technical blog, and work notes — formerly <code>kanwisher.com</code>.
       </p>
       <div class="hero-meta">
         <a href="{{ .Site.Params.twitter }}">@kanwisher</a>
         <a href="{{ .Site.Params.github }}">GitHub</a>
         <a href="{{ .Site.Params.linkedin }}">LinkedIn</a>
         <a href="mailto:{{ .Site.Params.email }}">Email</a>
-        <a href="{{ .Site.Params.youtube }}">Talks on YouTube</a>
+        <a href="{{ .Site.Params.youtube }}">YouTube playlist</a>
       </div>
     </div>
   </section>
 
   <div class="section-head">
-    <h2>Recent talks</h2>
+    <h2>Talks with video</h2>
     <a href="{{ "talks/" | relURL }}">All talks →</a>
   </div>
-  <ul class="card-list">
-    {{ range first 5 (where .Site.RegularPages "Section" "talks").ByDate.Reverse }}
-    <li>
-      <a class="card" href="{{ .RelPermalink }}">
+
+  {{ if $featured }}
+  <div class="video-grid">
+    {{ range $featured }}
+    {{ $yt := .Params.youtube | string }}
+    <a class="video-card" href="{{ .RelPermalink }}">
+      <div class="video-thumb">
+        <img
+          src="https://i.ytimg.com/vi/{{ $yt }}/hqdefault.jpg"
+          alt=""
+          width="480"
+          height="360"
+          loading="lazy"
+          decoding="async">
+        <span class="play-badge" aria-hidden="true">▶</span>
+      </div>
+      <div class="video-card-body">
         <h3>{{ .Title }}</h3>
         <div class="meta">
           {{ with .Params.event }}{{ . }}{{ end }}
           {{ with .Params.year }} · {{ . }}{{ end }}
           {{ with .Params.city }} · {{ . }}{{ end }}
         </div>
-        {{ if .Params.youtube }}
-        <div class="tag-row"><span class="tag video">video</span></div>
-        {{ end }}
+      </div>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ if $more }}
+  <ul class="talk-link-list">
+    {{ range $more }}
+    <li>
+      <a href="{{ .RelPermalink }}">
+        <span class="talk-link-title">{{ .Title }}</span>
+        <span class="meta">
+          {{ with .Params.event }}{{ . }}{{ end }}
+          {{ with .Params.year }} · {{ . }}{{ end }}
+        </span>
       </a>
     </li>
     {{ end }}
   </ul>
+  {{ end }}
 
   <div class="section-head">
     <h2>From the blog</h2>
@@ -54,18 +89,14 @@
   </div>
   <ul class="card-list">
     {{ $posts := where .Site.RegularPages "Section" "blog" }}
-    {{ if $posts }}
-      {{ range first 3 $posts.ByDate.Reverse }}
-      <li>
-        <a class="card" href="{{ .RelPermalink }}">
-          <h3>{{ .Title }}</h3>
-          <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
-          {{ with .Description }}<p>{{ . }}</p>{{ end }}
-        </a>
-      </li>
-      {{ end }}
-    {{ else }}
-      <li class="muted">Blog posts coming soon — technical write-ups of reverse engineering and conference material.</li>
+    {{ range first 3 $posts.ByDate.Reverse }}
+    <li>
+      <a class="card" href="{{ .RelPermalink }}">
+        <h3>{{ .Title }}</h3>
+        <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </a>
+    </li>
     {{ end }}
   </ul>
 </div>
