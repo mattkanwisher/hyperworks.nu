@@ -9,14 +9,32 @@
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@kanwisher">
 <link rel="icon" href="{{ "favicon.png" | relURL }}" type="image/png" sizes="32x32">
 <link rel="icon" href="{{ "favicon-16.png" | relURL }}" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}" sizes="180x180">
-{{ $ogImage := "/images/avatar.jpg" }}
-{{ with .Params.image }}{{ $ogImage = . }}{{ end }}
+{{/* One-time OG image resolve in head (no per-page partials/functions).
+     Priority: front matter image → YouTube thumb → site default */}}
+{{ $ogImage := "" }}
+{{ $ogAbs := false }}
+{{ with .Params.image }}
+  {{ $ogImage = . }}
+{{ else }}
+  {{ with .Params.youtube }}
+    {{ $ogImage = printf "https://i.ytimg.com/vi/%s/hqdefault.jpg" (. | string) }}
+    {{ $ogAbs = true }}
+  {{ else }}
+    {{ $ogImage = site.Params.images.og | default "/images/avatar.jpg" }}
+  {{ end }}
+{{ end }}
+{{ if $ogAbs }}
+<meta property="og:image" content="{{ $ogImage }}">
+<meta name="twitter:image" content="{{ $ogImage }}">
+{{ else }}
 <meta property="og:image" content="{{ $ogImage | absURL }}">
+<meta name="twitter:image" content="{{ $ogImage | absURL }}">
+{{ end }}
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">

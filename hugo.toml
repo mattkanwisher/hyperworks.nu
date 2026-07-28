@@ -21,6 +21,9 @@ defaultContentLanguage = "en"
   linkedin = "https://www.linkedin.com/in/mattcampbell777/"
   youtube = "https://www.youtube.com/playlist?list=PL9pIpc63NOOaBy3HxQVIhoNeNT8_d8maL"
   headshot = "/images/headshot.jpg"
+  [params.images]
+    # Default social share image when a page has no image / youtube front matter
+    og = "/images/avatar.jpg"
 
 [taxonomies]
   tag = "tags"
