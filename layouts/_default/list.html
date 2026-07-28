@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="wrap">
+  <header class="article-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="lead">{{ . }}</div>
+    {{ end }}
+  </header>
+  <ul class="card-list">
+    {{ range .Pages.ByDate.Reverse }}
+    <li>
+      <a class="card" href="{{ .RelPermalink }}">
+        <h3>{{ .Title }}</h3>
+        <div class="meta">
+          {{ with .Date }}{{ .Format "2006-01-02" }}{{ end }}
+          {{ with .Params.event }} · {{ . }}{{ end }}
+        </div>
+        {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ with .Summary }}<p>{{ . | plainify | truncate 140 }}</p>{{ end }}{{ end }}
+        {{ if .Params.youtube }}
+        <div class="tag-row"><span class="tag video">video</span></div>
+        {{ end }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

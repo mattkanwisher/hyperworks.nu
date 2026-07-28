@@ -1,0 +1,72 @@
+{{ define "main" }}
+<div class="wrap">
+  <section class="hero">
+    {{ with .Site.Params.headshot }}
+    <img src="{{ . }}" alt="{{ $.Site.Params.author }}" width="120" height="150">
+    {{ end }}
+    <div>
+      <h1>Matthew Campbell</h1>
+      <p class="lead">
+        Hardware reverse engineering, Go, distributed systems, and open robotics.
+        Building <a href="https://tensorfleet.net">TensorFleet</a>. Previously DigitalOcean, Loom Network / CryptoZombies, Bloomberg, Thomson Reuters.
+        Latest: <a href="{{ "blog/gaime-lightgun-reverse-engineering/" | relURL }}">G'AIM'E light gun RE</a>
+        · <a href="{{ "blog/oscr-cartreader-macos-android/" | relURL }}">OSCR cart reader companions</a>.
+      </p>
+      <p>
+        This site is the home for my work, blog, conference talks, and (soon) YouTube.
+        Formerly <code>kanwisher.com</code> — now <strong>hyperworks.nu</strong>.
+      </p>
+      <div class="hero-meta">
+        <a href="{{ .Site.Params.twitter }}">@kanwisher</a>
+        <a href="{{ .Site.Params.github }}">GitHub</a>
+        <a href="{{ .Site.Params.linkedin }}">LinkedIn</a>
+        <a href="mailto:{{ .Site.Params.email }}">Email</a>
+        <a href="{{ .Site.Params.youtube }}">Talks on YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2>Recent talks</h2>
+    <a href="{{ "talks/" | relURL }}">All talks →</a>
+  </div>
+  <ul class="card-list">
+    {{ range first 5 (where .Site.RegularPages "Section" "talks").ByDate.Reverse }}
+    <li>
+      <a class="card" href="{{ .RelPermalink }}">
+        <h3>{{ .Title }}</h3>
+        <div class="meta">
+          {{ with .Params.event }}{{ . }}{{ end }}
+          {{ with .Params.year }} · {{ . }}{{ end }}
+          {{ with .Params.city }} · {{ . }}{{ end }}
+        </div>
+        {{ if .Params.youtube }}
+        <div class="tag-row"><span class="tag video">video</span></div>
+        {{ end }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+
+  <div class="section-head">
+    <h2>From the blog</h2>
+    <a href="{{ "blog/" | relURL }}">All posts →</a>
+  </div>
+  <ul class="card-list">
+    {{ $posts := where .Site.RegularPages "Section" "blog" }}
+    {{ if $posts }}
+      {{ range first 3 $posts.ByDate.Reverse }}
+      <li>
+        <a class="card" href="{{ .RelPermalink }}">
+          <h3>{{ .Title }}</h3>
+          <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+          {{ with .Description }}<p>{{ . }}</p>{{ end }}
+        </a>
+      </li>
+      {{ end }}
+    {{ else }}
+      <li class="muted">Blog posts coming soon — technical write-ups of reverse engineering and conference material.</li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

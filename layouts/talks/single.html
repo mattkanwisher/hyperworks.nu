@@ -1,0 +1,46 @@
+{{ define "main" }}
+<article class="wrap">
+  <header class="article-header">
+    <h1>{{ .Title }}</h1>
+    <div class="meta">
+      {{ with .Params.event }}{{ . }}{{ end }}
+      {{ with .Params.year }} · {{ . }}{{ end }}
+      {{ with .Params.city }} · {{ . }}{{ end }}
+      {{ with .Params.date }} · {{ time.Format "2006-01-02" . }}{{ end }}
+    </div>
+    {{ with .Params.tags }}
+    <div class="tag-row">
+      {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
+      {{ if $.Params.youtube }}<span class="tag video">video</span>{{ end }}
+    </div>
+    {{ end }}
+  </header>
+
+  {{ with .Params.youtube }}
+  <div class="video-embed">
+    <iframe
+      src="https://www.youtube.com/embed/{{ . }}"
+      title="{{ $.Title }}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy"></iframe>
+  </div>
+  {{ end }}
+
+  <div class="talk-links">
+    {{ with .Params.youtube }}
+    <a href="https://www.youtube.com/watch?v={{ . }}">Watch on YouTube</a>
+    {{ end }}
+    {{ with .Params.slides }}
+    <a href="{{ . }}">Slides</a>
+    {{ end }}
+    {{ with .Params.external }}
+    <a href="{{ . }}">Event page</a>
+    {{ end }}
+  </div>
+
+  <div class="article-content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

@@ -1,0 +1,62 @@
+baseURL = "https://hyperworks.nu/"
+title = "Matthew Campbell — Hyperworks"
+enableRobotsTXT = true
+enableGitInfo = false
+summaryLength = 40
+
+defaultContentLanguage = "en"
+
+[languages]
+  [languages.en]
+    locale = "en-US"
+    label = "English"
+    weight = 1
+
+[params]
+  description = "Personal site of Matthew Campbell — hardware reverse engineering, Go, distributed systems, public speaking, and TensorFleet."
+  author = "Matthew Campbell"
+  email = "hyper@hyperworks.nu"
+  twitter = "https://twitter.com/kanwisher"
+  github = "https://github.com/mattkanwisher"
+  linkedin = "https://www.linkedin.com/in/mattcampbell777/"
+  youtube = "https://www.youtube.com/playlist?list=PL9pIpc63NOOaBy3HxQVIhoNeNT8_d8maL"
+  headshot = "/images/headshot.jpg"
+
+[taxonomies]
+  tag = "tags"
+  event = "events"
+  year = "years"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = 2
+  [[menu.main]]
+    name = "Talks"
+    url = "/talks/"
+    weight = 3
+  [[menu.main]]
+    name = "Work"
+    url = "/work/"
+    weight = 4
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 5
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]

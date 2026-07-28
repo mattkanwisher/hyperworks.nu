@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="wrap-wide">
+  <header class="article-header wrap" style="width:100%;max-width:var(--max);margin-inline:auto;padding:0">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="lead">{{ . }}</div>
+    {{ end }}
+  </header>
+
+  {{ $talks := .Pages.ByDate.Reverse }}
+  {{ $years := slice }}
+  {{ range $talks }}
+    {{ $y := .Params.year }}
+    {{ if not $y }}{{ $y = .Date.Year }}{{ end }}
+    {{ if not (in $years $y) }}{{ $years = $years | append $y }}{{ end }}
+  {{ end }}
+  {{ $years = sort $years "value" "desc" }}
+
+  {{ range $years }}
+  {{ $year := . }}
+  <section class="year-group wrap" style="width:100%;max-width:var(--max);margin-inline:auto">
+    <h2>{{ $year }}</h2>
+    <ul class="card-list">
+      {{ range where $talks "Params.year" $year }}
+      <li>
+        <a class="card" href="{{ .RelPermalink }}">
+          <h3>{{ .Title }}</h3>
+          <div class="meta">
+            {{ with .Params.event }}{{ . }}{{ end }}
+            {{ with .Params.city }} · {{ . }}{{ end }}
+          </div>
+          {{ with .Description }}<p>{{ . }}</p>{{ end }}
+          <div class="tag-row">
+            {{ if .Params.youtube }}<span class="tag video">video</span>{{ end }}
+            {{ range first 3 .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
+          </div>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

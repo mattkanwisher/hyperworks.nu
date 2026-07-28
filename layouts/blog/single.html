@@ -1,0 +1,14 @@
+{{ define "main" }}
+<article class="wrap">
+  <header class="article-header">
+    <h1>{{ .Title }}</h1>
+    <div class="meta">{{ .Date.Format "January 2, 2006" }}</div>
+    {{ with .Params.tags }}
+    <div class="tag-row">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
+    {{ end }}
+  </header>
+  <div class="article-content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}
