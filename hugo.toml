@@ -3,6 +3,8 @@ title = "Matthew Campbell — Hyperworks"
 enableRobotsTXT = true
 enableGitInfo = false
 summaryLength = 40
+# Include posts whose date is "today" when the build host clock is still previous UTC day.
+buildFuture = true
 
 defaultContentLanguage = "en"
 
@@ -67,6 +69,3 @@ defaultContentLanguage = "en"
 [outputs]
   home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
-
-# Publish posts dated "today" even when Netlify build clock is still previous UTC day.
-buildFuture = true
