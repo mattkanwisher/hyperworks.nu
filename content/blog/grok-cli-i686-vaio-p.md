@@ -1,163 +1,140 @@
 ---
-title: "Grok CLI on a 32-bit Vaio P — shipping i686 when nobody else does"
+title: "Getting an AI CLI running on a 15-year-old mini computer (Sony Vaio P)"
 date: 2026-07-30
-description: "Official Grok Build has no i686 binary. I cross-compiled the open-source CLI for a Sony Vaio P (Atom Z550, antiX) — aws-lc worked, the real pain was arch-gated Rust and flaky CDNs."
-tags: [rust, linux, i686, vaio, grok, reverse-engineering, systems]
+description: "Restoring a Vaio P for real daily use meant antiX on i386, a full Windows backup first, and a 32-bit Grok CLI — none of which just worked out of the box."
+tags: [rust, linux, i686, vaio, grok, antix, hardware, systems]
 image: /images/og/blog-vaio-p.jpg
-image_alt: "Ultra-portable silver netbook open on a dark desk — Vaio P era hardware"
+image_alt: "My Sony Vaio P VGN-P92LS on the desk running Grok CLI"
 draft: false
 ---
 
-Official [Grok Build](https://github.com/xai-org/grok-build) does not ship an **i686** binary. My **Sony Vaio P** (Intel **Atom Z550**, pure 32-bit) running **antiX / Debian trixie** only speaks i386 userspace and has about **2 GB of RAM**.
+I picked up a **Sony Vaio P** — the ridiculous 2009 pocket laptop with the lipstick-tube hinge — and decided to actually *use* it again, not just put it on a shelf.
 
-So I built one.
+That meant three stubborn goals:
 
-The result lives in **[mattkanwisher/grok-i686](https://github.com/mattkanwisher/grok-i686)**: a prebuilt `dist/grok` (ELF 32-bit Intel 80386), the patches that made it compile, a reproduce script, and a longer narrative of every dead end.
+1. **Restore** the machine carefully (keep the stock Windows image so I can always go back)
+2. Run a **modern 32-bit Linux** that still boots on Intel’s ancient Poulsbo / GMA 500 graphics
+3. Run a **real AI coding CLI** on that box — not a toy, the actual open-source **Grok** agent
 
-![Vaio P–class ultra-portable on a dark desk](/images/blog/headers/vaio-p.jpg)
-*The kind of machine this is for: tiny late-2000s ultra-portable, not a workstation.*
+Official builds of almost everything that matters are **64-bit only**. The Vaio’s Atom **Z550** is pure 32-bit. So nothing “just installs.”
 
-## Why bother?
+This post is the path that worked: **antiX i386** on the machine, and a home-built **i686 Grok CLI** shipped as [mattkanwisher/grok-i686](https://github.com/mattkanwisher/grok-i686).
 
-Rust’s `i686-unknown-linux-gnu` target is **Tier 1**. That only means the *compiler* is happy. A large modern workspace still has:
+![My Sony Vaio P on the desk running Grok](/images/blog/vaio/vaio-p-desk.jpg)
+*VGN-P92LS on the desk — Grok CLI open in the TUI. Same photos as the [X post](https://twitter.com/kanwisher/status/2082532166265913478).*
 
-- C/CMake crypto (AWS-LC via `aws-lc-rs`)
-- Arch-gated `cfg` that assumes x86_64
-- Seccomp filters written for 64-bit syscall ABIs
-- Tooling that only downloads x86_64 / aarch64 assets
-- A ~170 MB release binary that has to live with glibc on the *target*, not the build host
+![Holding the Vaio P](/images/blog/vaio/vaio-p-handheld.jpg)
+*Scale check: still the smallest serious laptop form factor Sony ever shipped.*
 
-Target facts for the published artifact:
+## The machine I’m restoring
 
-| Item | Value |
+From the hardware notes in the Vaio retrofit project ([vaio_p_modding](https://github.com/TensorFleet/vaio_p_modding) / local research tree):
+
+| Spec | Value |
 |------|--------|
-| Package | `xai-grok-pager` (installed as `grok`) |
-| Target | `i686-unknown-linux-gnu` |
-| Upstream rev | `5da6962e…` (pinned in the build script) |
-| Max GLIBC needed | **2.39** (trixie ships 2.41 → OK) |
-| Repo | [github.com/mattkanwisher/grok-i686](https://github.com/mattkanwisher/grok-i686) |
+| Model (mine) | **VGN-P92LS** (JP market P3 line) |
+| CPU | Intel **Atom Z550**, single core + HT — **i386 only** |
+| Chipset / GPU | US15W **Poulsbo** / **GMA 500** (the Linux graphics villain) |
+| RAM | **2 GB** DDR2, soldered |
+| Storage | 1.8″ **ZIF** (stock 64 GB Samsung SSD on this unit) |
+| Display | 8″ **1600×768** |
+| Era | ~2009 — about **15 years** old |
 
-On the Atom itself: expect a heavy fullscreen TUI. Codebase-indexing features may simply be too memory-hungry. That is fine — the point was **run the CLI on hardware that cannot run 64-bit userspace at all**.
+Long-term the bigger project is a **CM5 board swap** inside the same chassis. Short-term I wanted the *stock* silicon useful: backup Windows, install a light 32-bit Linux, get an AI CLI on it.
 
-## The hypothesis that failed (in a good way)
+## Step 1 — Don’t brick the donor: antiX live + full SSD backup
 
-I expected **`aws-lc-sys`** to be the show-stopper. AWS-LC does not advertise 32-bit x86 Linux. Community lore said: evict every path onto `ring` or give up.
+Before rewriting the disk, I imaged the stock **Windows 7** layout (Sony recovery + System Reserved + main NTFS) with `partclone` + `zstd` onto a USB key labeled `VAIO_BACKUP`.
 
-With a real **`-m32`** C toolchain, cmake, clang/libclang, and nasm, **`aws-lc-sys 0.39.1` built and linked for i686** on this lockfile. No feature surgery for the published binary. The ring escape hatch is still good documentation; it was not the path we needed.
+That work is scripted in the Vaio repo under `scripts/ssd-backup/`. The important operational detail:
 
-## Do not build on the Atom
+> Boot **antiX-26 386 live USB** (needs **`nomodeset`** on the Vaio’s GMA 500), install `partclone` and `zstd`, mount the backup key, then run the backup script as root.
 
-Cross-compile from **x86_64 multilib**. The ideal story — `docker run --platform linux/386 i386/debian:trixie` — burned time:
+Why **antiX**, not Ubuntu or Mint?
 
-- Packages are i386, but `uname -m` still reports **x86_64**
-- rustup follows uname unless forced
-- Large Fastly downloads of i686 rustup bits stalled mid-stream
+- It still publishes a real **386** live image that boots on this class of hardware
+- It’s light enough to run from USB with **2 GB RAM**
+- Community report on similar machines: heavier desktops crawl; **light 32-bit distros** are the ones people still daily-drive ([r/SonyVaioP “using a Vaio P in 2024”](https://reddit.com/r/SonyVaioP/comments/1di1eje/using_a_vaio_p_in_2024_a_guide/) and friends)
 
-What worked:
+**GMA 500 + `nomodeset`:** without that kernel arg, live sessions often hang or show a black screen. That is the Poulsbo tax everyone pays in 2026.
 
-```bash
-export CARGO_TARGET_I686_UNKNOWN_LINUX_GNU_LINKER=gcc
-export CC_i686_unknown_linux_gnu="gcc -m32"
-export CXX_i686_unknown_linux_gnu="g++ -m32"
-export CFLAGS_i686_unknown_linux_gnu="-m32"
+Once the backup verified, the installed OS on **`vaiop-blk1`** became **antiX on Debian 13 (trixie) i386** — glibc **2.41**, enough room for modern packages, still 32-bit end-to-end.
 
-cargo build -p xai-grok-pager-bin --release --target i686-unknown-linux-gnu
-```
+## Step 2 — I want an AI CLI. Nothing ships for i686.
 
-Or from the port repo:
+[xai-org/grok-build](https://github.com/xai-org/grok-build) is open source. Upstream ships **no** release binaries for i686 (and no generic “download for Atom” story).
+
+Rust *can* target `i686-unknown-linux-gnu` (Tier 1). That doesn’t mean the dependency graph cares about your netbook:
+
+| Wish | Reality |
+|------|---------|
+| Official Grok CLI package | ❌ no i686 artifact |
+| `cargo install` on the Vaio itself | ❌ 2 GB RAM + multi-hour link = bad idea |
+| “Just use a container on the Atom” | ❌ still no free lunch for disk/RAM |
+| Cross-compile from a real x86_64 box | ✅ the path that worked |
+
+Goal restated: **32-bit Linux on the Vaio + 32-bit Grok binary that runs natively there.** Both halves had to be built or installed by hand.
+
+## Step 3 — Cross-compile Grok for i686
+
+Build host: any x86_64 Linux with multilib (**do not build on the Atom**). Scripted end-to-end in [grok-i686](https://github.com/mattkanwisher/grok-i686):
 
 ```bash
 git clone https://github.com/mattkanwisher/grok-i686.git
 cd grok-i686
-./scripts/build-i686.sh   # → dist/grok
+./scripts/build-i686.sh
+# → dist/grok   (ELF 32-bit Intel 80386)
 ```
 
-## Network pain was half the project
-
-On the build host, downloads from `static.rust-lang.org` (Fastly) repeatedly hung after ~35 MB — especially HTTP/2 / IPv6. Sparse crates.io through the same CDN family timed out under cargo’s parallel HTTP client.
-
-| Symptom | Mitigation |
-|---------|------------|
-| rustup / rustc tarballs hang | Force IPv4 (`curl -4`); chunked downloads; mirrors when needed |
-| cargo sparse index timeouts | `[registries.crates-io] protocol = "git"` |
-| Flaky parallel HTTP | `git-fetch-with-cli`, retries, lower multiplexing |
-
-If you only remember one ops lesson: **assume CDN flake early**, not after three hours of “cargo is broken.”
-
-## Compile errors that actually were i686-specific
-
-### 1. `fastant` — wrong arch module
-
-Gated as `cfg(any(target_arch = "x86", "x86_64"))` but always imported `core::arch::x86_64::__cpuid`. On i686 that module does not exist.
-
-**Fix:** local crate patch — `core::arch::x86` on 32-bit, `x86_64` on 64-bit (`patches/fastant`).
-
-### 2. `nono` — missing syscall numbers
-
-`SYS_OPENAT` / `SYS_OPENAT2` only defined for x86_64 and aarch64.
-
-**Fix:** for `target_arch = "x86"`: openat **295**, openat2 **437** (`patches/nono`).
-
-### 3. Sandbox — `SYS_accept` missing on i686
-
-32-bit x86 socket ops historically go through **`socketcall`**. libc does not expose `SYS_accept` the way x86_64 does, so the child network seccomp filter would not compile.
-
-**Fix:** full filter on x86_64/aarch64; **no-op network filter** on other Linux arches (including i686). Trade-off: weaker network sandboxing on 32-bit. Also set `AUDIT_ARCH_I386` for namespace lockdown.
-
-### 4. `pprof::blocklist` is arch-gated
-
-Only exists on some arches. Unconditional call breaks i686.
-
-**Fix:** `cfg` the `.blocklist(...)` call in CPU profiling.
-
-### 5. `rlim_t` width
-
-Address-space caps assumed `u64`. `rlim_t` is **u32** on i686.
-
-**Fix:** cast through `libc::rlim_t`.
-
-### 6. Bundled ripgrep
-
-Build scripts only auto-fetch `rg` for known x86_64 / aarch64 assets.
-
-**Fix:** ship BurntSushi’s official i686 `rg` and set `GROK_TOOLS_BUNDLE_RG_PATH` / `GROK_SHELL_BUNDLE_RG_PATH`.
-
-## Verification
+On the Vaio:
 
 ```bash
-file dist/grok
-# ELF 32-bit LSB ... Intel 80386
-
-objdump -T dist/grok | grep -o 'GLIBC_[0-9.]*' | sort -Vu | tail -5
-# highest ≤ target glibc (we needed 2.39)
-
-dist/grok --version
+# needs git-lfs for the ~170 MB artifact
+scp dist/grok vaiop-blk1:~/.local/bin/grok
+ssh vaiop-blk1 'chmod 755 ~/.local/bin/grok && grok --version'
+# grok 0.2.112 … ELF 32-bit … glibc floor 2.39 (box has 2.41)
 ```
 
-## Quick start on the Vaio
+### What I expected to fail (and didn’t)
 
-```bash
-# needs git-lfs — dist/grok is ~170 MB
-git clone https://github.com/mattkanwisher/grok-i686.git
-cd grok-i686 && git lfs pull
+**`aws-lc-sys`** — AWS’s BoringSSL fork, in the tree via JWT / rustls / sigstore. Not advertised for 32-bit x86. Community lore: “you’ll need to eject everything onto `ring`.”
 
-scp dist/grok user@vaio:~/.local/bin/grok
-ssh user@vaio 'chmod 755 ~/.local/bin/grok && grok --version'
-```
+With a real **`-m32`** toolchain, cmake, clang, and nasm, **aws-lc built and linked for i686** on this lockfile. No feature surgery for the published binary.
 
-Set `XAI_API_KEY` or complete the browser auth flow on first run.
+### What actually failed
 
-## What I would do differently
+| Issue | Fix |
+|-------|-----|
+| `fastant` imports `core::arch::x86_64` under a broad x86 cfg | Patch: use `arch::x86` on i686 |
+| `nono` missing `SYS_OPENAT{,2}` on i386 | Patch: syscalls **295 / 437** |
+| Sandbox seccomp uses `SYS_accept` (socketcall on i686) | Full filter on x86_64/aarch64; **no-op network filter** on i686 |
+| `pprof::blocklist` missing on this arch | `cfg` the call |
+| `rlim_t` is `u32` on i686 | Cast through `libc::rlim_t` |
+| Bundled `rg` only for x86_64/aarch64 assets | Ship i686 ripgrep + env paths |
+| Fastly / IPv6 stalls on rustup & crates.io | Force IPv4; cargo `protocol = "git"` for crates-io |
+| Docker `linux/386` still reports `uname -m = x86_64` | Prefer host multilib cross-compile |
 
-1. Start with **multilib cross-compile**, not a 386 container, unless rustup’s i686 downloads are already proven healthy on that network.
-2. Plan for **mirrors, IPv4, and git crates index** before the first full release link.
-3. Run `cargo check --target i686-unknown-linux-gnu` before a multi-hour release build.
-4. Budget for **“works on x86_64” cfg bugs**, not only crypto CMake.
+Longer narrative of the build detours: [docs/problems-and-solutions.html](https://github.com/mattkanwisher/grok-i686/blob/main/docs/problems-and-solutions.html) in the port repo.
+
+## Does it make sense on 2 GB RAM?
+
+Honestly: the TUI is **heavy**. Fullscreen Grok on an Atom is a flex and a research tool, not a replacement for a desktop workstation. Codebase-indexing features may be too memory-hungry.
+
+That’s fine for this phase of the restore. The point was:
+
+- Prove the **Vaio still boots a real modern userspace**
+- Prove **today’s AI CLI stack can target i686** if you care enough
+- Keep a path to reinstall Windows from the antiX-made backup if experiments go sideways
+
+The CM5 retrofit (same chassis, 64-bit ARM, proper GPU story) is the long game. This is the **stock-silicon** chapter.
 
 ## Links
 
-- **Port repo:** [mattkanwisher/grok-i686](https://github.com/mattkanwisher/grok-i686)
-- **Upstream:** [xai-org/grok-build](https://github.com/xai-org/grok-build) (Apache-2.0)
-- **Long-form build diary (HTML in the repo):** [problems-and-solutions.html](https://github.com/mattkanwisher/grok-i686/blob/main/docs/problems-and-solutions.html)
+| What | Where |
+|------|--------|
+| **i686 Grok port** | [github.com/mattkanwisher/grok-i686](https://github.com/mattkanwisher/grok-i686) |
+| **Upstream Grok Build** | [xai-org/grok-build](https://github.com/xai-org/grok-build) |
+| **Vaio hardware / backup / retrofit notes** | TensorFleet `vaio_p_modding` (antiX live + `nomodeset`, SSD backup scripts, CM5 plan) |
+| **X** | [Vaio P + Grok CLI](https://twitter.com/kanwisher/status/2082532166265913478) |
 
-This is a **personal / experimental** port for hardware I own — not an official xAI release. On i686 the sandbox network path is intentionally weaker; treat it accordingly.
+Personal hardware port — **not** an official xAI release. On i686 the sandbox network path is intentionally weaker; treat it as experimental.
