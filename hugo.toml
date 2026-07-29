@@ -67,3 +67,6 @@ defaultContentLanguage = "en"
 [outputs]
   home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
+
+# Publish posts dated "today" even when Netlify build clock is still previous UTC day.
+buildFuture = true

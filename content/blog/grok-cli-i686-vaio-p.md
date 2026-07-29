@@ -1,6 +1,6 @@
 ---
 title: "Grok CLI on a 32-bit Vaio P — shipping i686 when nobody else does"
-date: 2026-07-30T08:00:00+07:00
+date: 2026-07-30
 description: "Official Grok Build has no i686 binary. I cross-compiled the open-source CLI for a Sony Vaio P (Atom Z550, antiX) — aws-lc worked, the real pain was arch-gated Rust and flaky CDNs."
 tags: [rust, linux, i686, vaio, grok, reverse-engineering, systems]
 image: /images/og/blog-vaio-p.jpg
